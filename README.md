@@ -11,7 +11,7 @@
 - I want to be able to edit/delete my reservation at anytime
 - I want to be able to see all my reservations list
 - I want to be able to comment about my experince in the hotels
-- I want to be able to book a taxi
+- I want to be able to book a taxi and cancel it at anytime
 
 *future improvements:
 - I want to be able to view places to visit (attractions,restaurants,entertianments)
