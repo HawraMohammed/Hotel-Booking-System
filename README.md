@@ -1,5 +1,5 @@
 <h1>
-  <span class="headline">Hotel Booking Sysyem</span>
+  <span class="headline">Hotel Booking System</span>
 </h1>
 
 ## User Stories:
