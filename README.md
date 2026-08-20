@@ -24,9 +24,9 @@
 - I want to be able to add/edit/delete places to visit (attractions,restaurants,entertianments)
 
 ## Initial protoypes:
-[prototypes](./prototypes.png)
+![prototypes](./prototypes.png)
 ## Entity Relationship Diagram:
-[ERD](./ERD.png)
+![ERD](./ERD.png)
 
 
 
