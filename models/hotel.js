@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
     }
 });
 const roomSchema = new mongoose.Schema({
-    type: { type: String, required: true },
+    type: { type: String, enum: ['Single', 'Double', 'Suite'], required: true },
     capacity: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
     quantity: { type: Number, required: true },
@@ -22,8 +22,8 @@ const hotelSchema = new mongoose.Schema({
     description: { type: String, required: true },
     location: { type: String, required: true },
     rooms: [roomSchema],
-    pictures: { type: [String], required: true },
-    features: { type: [String], required: true },
+    picture: { type: String, required: true },
+    services: { type: [String], required: true },
     comments: [commentSchema]
 });
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar') %>
+        <%if (hotels){%>
+            <h1>All hotels</h1>
+            <% hotels.forEach((hotel)=>{%>
+                <div class="hotel-container">
+                    <h2>
+                        <%=hotel.name%>
+                    </h2>
+                    <h4>
+                        <%=hotel.location%>
+                    </h4>
+                    <p>
+                        <%=hotel.description%>
+                    </p>
+                    <%hotel.services.forEach((service)=>{%>
+                        <div class="feature">
+                            <p>
+                                <%=service%>
+                            </p>
+                        </div>
+                        <%})%>
+                            <%hotel.rooms.forEach((room)=>{%>
+                                <div class="feature">
+                                    <p>
+                                        <%=room.type%>
+                                    </p>
+                                    <p>
+                                        <%=room.pricePerNight%>
+                                    </p>
+                                </div>
+                                <%})%>
+                </div>
+                <% }) } else {%>
+                    <p>No hotels are added yet</p>
+                    <%}%>
+                        <a href="/admin/hotels/new">Add new hotel</a>
+                        <%- include('../partials/_footer') %>
+</body>
+
+</html>

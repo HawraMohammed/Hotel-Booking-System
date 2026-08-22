@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new hotel</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar') %>
+
+        <form action="/admin/hotels" method="post">
+            <fieldset>
+                <legend>Hotel detials</legend>
+                <label for="name">Hotel name</label>
+                <input type="text" name="name" id="name">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location">
+                <label for="pictures">Add pictures</label>
+                <input type="text" name="pictures" id="pictures">
+            </fieldset>
+            <fieldset>
+                <legend>Services</legend>
+                <label for="Wifi">
+                    <input type="checkbox" name="services" id="Wifi" value="Wifi">
+                    Wifi
+                </label>
+
+                <label for="Swimming-Pool">
+                    <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool">
+                    Swimming Pool
+                </label>
+
+                <label for="Room-Service">
+                    <input type="checkbox" name="services" id="Room-Service" value="Room Service">
+                    Room Service
+                </label>
+
+                <label for="View">
+                    <input type="checkbox" name="services" id="View" value="View">
+                    View
+                </label>
+
+                <label for="Gym">
+                    <input type="checkbox" name="services" id="Gym" value="Gym">
+                    Gym
+                </label>
+
+                <label for="Spa">
+                    <input type="checkbox" name="services" id="Spa" value="Spa">
+                    Spa
+                </label>
+
+                <label for="Parking">
+                    <input type="checkbox" name="services" id="Parking" value="Parking">
+                    Parking
+                </label>
+
+                <label for="Non-smoking-rooms">
+                    <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms">
+                    Non-smoking rooms
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Rooms</legend>
+
+                <div id="rooms-container">
+
+                    <div class="room">
+                        <label>Room Type</label>
+                        <select name="roomType">
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Suite">Suite</option>
+                        </select>
+
+                        <label>Price Per Night</label>
+                        <input type="number" name="pricePerNight" required>
+
+                        <label>Capacity</label>
+                        <input type="number" name="capacity" required>
+
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" required>
+                    </div>
+
+                </div>
+
+                <button type="button" id="add-room">Add Room Type</button>
+            </fieldset>
+            <button type="submit">Add hotel</button>
+        </form>
+        <%- include('../partials/_footer') %>
+            <script>
+                const roomsContainer = document.querySelector('#rooms-container');
+                const addRoomButton = document.querySelector('#add-room');
+
+                addRoomButton.addEventListener('click', () => {
+                    const room = document.createElement('div');
+
+                    room.classList.add('room');
+
+                    room.innerHTML = `
+            <label>Room Type</label>
+            <select name="roomType">
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+            </select>
+
+            <label>Price Per Night</label>
+            <input type="number" name="pricePerNight" required>
+
+            <label>Capacity</label>
+            <input type="number" name="capacity" required>
+
+            <label>Quantity</label>
+            <input type="number" name="quantity" required>
+
+            <button type="button" class="remove-room">
+                Remove
+            </button>
+        `;
+
+                    roomsContainer.appendChild(room);
+                });
+
+                roomsContainer.addEventListener('click', (e) => {
+
+                    if (e.target.classList.contains('remove-room')) {
+                        e.target.parentElement.remove();
+                    }
+
+                });
+            </script>
+</body>
+
+</html>
