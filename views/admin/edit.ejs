@@ -1,3 +1,155 @@
-<%- include('../partials/_navbar') %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <%- include('../partials/_footer') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit hotel</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar') %>
+        <form action="/admin/hotels/<%=hotel._id%>?_method=put" method="post">
+            <fieldset>
+                <legend>Hotel detials</legend>
+                <label for="name">Hotel name</label>
+                <input type="text" name="name" id="name" value="<%=hotel.name%>">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" value="<%=hotel.description %>">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" value="<%=hotel.location%>">
+                <label for="picture">Add pictures</label>
+                <input type="text" name="picture" id="picture" value="<%=hotel.picture%>">
+            </fieldset>
+            <fieldset>
+                <legend>Services</legend>
+                <label for="Wifi">
+                    <input type="checkbox" name="services" id="Wifi" value="Wifi" <%=hotel.services.includes("Wifi")
+                        ? "checked" : "" %>>
+                    Wifi
+                </label>
+
+                <label for="Swimming-Pool">
+                    <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool"
+                        <%=hotel.services.includes("Swimming Pool") ? "checked" : "" %>>
+                    Swimming Pool
+                </label>
+
+                <label for="Room-Service">
+                    <input type="checkbox" name="services" id="Room-Service" value="Room Service"
+                        <%=hotel.services.includes("Room Service") ? "checked" : "" %>>
+
+                    Room Service
+                </label>
+
+                <label for="View">
+                    <input type="checkbox" name="services" id="View" value="View" <%=hotel.services.includes("View")
+                        ? "checked" : "" %>>
+
+                    View
+                </label>
+
+                <label for="Gym">
+                    <input type="checkbox" name="services" id="Gym" value="Gym" <%=hotel.services.includes("Gym")
+                        ? "checked" : "" %>>
+
+                    Gym
+                </label>
+
+                <label for="Spa">
+                    <input type="checkbox" name="services" id="Spa" value="Spa" <%=hotel.services.includes("Spa")
+                        ? "checked" : "" %>>
+
+                    Spa
+                </label>
+
+                <label for="Parking">
+                    <input type="checkbox" name="services" id="Parking" value="Parking"
+                        <%=hotel.services.includes("Parking") ? "checked" : "" %>>
+
+                    Parking
+                </label>
+
+                <label for="Non-smoking-rooms">
+                    <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms"
+                        <%=hotel.services.includes("Non-smoking rooms") ? "checked" : "" %>>
+
+                    Non-smoking rooms
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Rooms</legend>
+
+                <div id="rooms-container">
+                    <% hotel.rooms.forEach((room)=>{%>
+                        <div class="room">
+                            <label>Room Type</label>
+                            <select name="roomType">
+                                <option value="Single" <%=room.type==='Single' ? 'selected' :''%>>Single</option>
+                                <option value="Double" <%=room.type==='Double' ? 'selected' :''%>>Double</option>
+                                <option value="Suite" <%=room.type==='Suite' ? 'selected' :''%>>Suite</option>
+                            </select>
+
+                            <label>Price Per Night</label>
+                            <input type="number" name="pricePerNight" value="<%=room.pricePerNight%>" required>
+
+                            <label>Capacity</label>
+                            <input type="number" name="capacity" value="<%=room.capacity%>" required>
+
+                            <label>Quantity</label>
+                            <input type="number" name="quantity" value="<%=room.quantity%>" required>
+                        </div>
+                        <%})%>
+                </div>
+
+
+                <button type="button" id="add-room">Add Room Type</button>
+            </fieldset>
+            <button type="submit">Save changes</button>
+        </form>
+        <%- include('../partials/_footer') %>
+            <script>
+                const roomsContainer = document.querySelector('#rooms-container');
+                const addRoomButton = document.querySelector('#add-room');
+
+                addRoomButton.addEventListener('click', () => {
+                    const room = document.createElement('div');
+
+                    room.classList.add('room');
+
+                    room.innerHTML = `
+            <label>Room Type</label>
+            <select name="roomType">
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+            </select>
+
+            <label>Price Per Night</label>
+            <input type="number" name="pricePerNight" required>
+
+            <label>Capacity</label>
+            <input type="number" name="capacity" required>
+
+            <label>Quantity</label>
+            <input type="number" name="quantity" required>
+
+            <button type="button" class="remove-room">
+                Remove
+            </button>
+        `;
+
+                    roomsContainer.appendChild(room);
+                });
+
+                roomsContainer.addEventListener('click', (e) => {
+
+                    if (e.target.classList.contains('remove-room')) {
+                        e.target.parentElement.remove();
+                    }
+
+                });
+            </script>
+</body>
+
+</html>

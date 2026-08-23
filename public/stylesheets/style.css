@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /* Universal Styles */
-*{
+* {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
@@ -13,4 +13,53 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+
+.hotel-container {
+  width: 800px;
+  border: 3px solid black;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.pict-details {
+  display: flex;
+  gap: 30px;
+  margin: 5px;
+}
+
+.picture img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details h2,
+.details p {
+  margin: 0;
+}
+
+.rooms,
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 5px;
+}
+
+.service,
+.room {
+  width: fit-content;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  font-size: 15px;
 }

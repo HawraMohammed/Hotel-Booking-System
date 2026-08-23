@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <%- include('../partials/_navbar') %>
+    <%- include('../../partials/_navbar') %>
         <%if (hotels){%>
             <h1>All hotels</h1>
             <% hotels.forEach((hotel)=>{%>
@@ -28,12 +28,9 @@
                             </p>
                         </div>
                         <div class="buttons">
-                            <a href="/admin/hotels/<%=hotel._id%>">View</a>
-                            <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                            <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                                <button type="submit">Delete</button>
-                            </form>
+                            <a href="/hotels/<%=hotel._id%>">View</a>
 
+                            <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
                         </div>
                     </div>
                     <div class="services">
@@ -58,10 +55,10 @@
 
                 </div>
                 <% }) } else {%>
-                    <p>No hotels are added yet</p>
+                    <p>No available hotels</p>
                     <%}%>
-                        <a href="/admin/hotels/new">Add new hotel</a>
-                        <%- include('../partials/_footer') %>
+
+                        <%- include('../../partials/_footer') %>
 </body>
 
 </html>

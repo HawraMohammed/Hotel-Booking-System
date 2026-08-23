@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <%- include('../partials/_navbar') %>
+    <%- include('../../partials/_navbar') %>
         <div class="hotel-container">
             <div class="pict-details">
                 <div class="picture"><img src="<%=hotel.picture%>"></div>
@@ -28,10 +28,8 @@
                 </div>
                 <div class="buttons">
 
-                    <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                    <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
+
                 </div>
             </div>
             <div class="services">
@@ -55,7 +53,7 @@
             </div>
 
         </div>
-        <%- include('../partials/_footer') %>
+        <%- include('../../partials/_footer') %>
 </body>
 
 </html>

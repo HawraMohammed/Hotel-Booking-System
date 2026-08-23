@@ -15,7 +15,6 @@ const roomSchema = new mongoose.Schema({
     capacity: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
     quantity: { type: Number, required: true },
-    availableRooms: { type: Number, required: true }
 });
 const hotelSchema = new mongoose.Schema({
     name: { type: String, required: true },

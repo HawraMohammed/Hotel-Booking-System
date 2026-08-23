@@ -5,4 +5,8 @@ const adminCtrl = require('../controllers/adminCtrl');
 router.get('/hotels', adminCtrl.index);
 router.get('/hotels/new', adminCtrl.newHotel);
 router.post('/hotels', adminCtrl.createHotel);
+router.get('/hotels/:hotelid/edit', adminCtrl.editHotel);
+router.put('/hotels/:hotelid', adminCtrl.updateHotel);
+router.get('/hotels/:hotelid', adminCtrl.showHotel);
+router.delete('/hotels/:hotelid', adminCtrl.deleteHotel);
 module.exports = router;
