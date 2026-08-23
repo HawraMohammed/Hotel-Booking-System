@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+</head>
+
+<body>
+    <h1>My reservations</h1>
+    <%if(reservations.length==0){%>
+        <p>No reservations</p>
+        <%}else{%>
+            <table>
+                <tr>
+                    <td>Hotel name</td>
+                    <td>Room Type</td>
+                    <td>Check-in date</td>
+                    <td>Check-out date</td>
+                </tr>
+                <%reservations.forEach((reservation)=>{%>
+                    <tr>
+                        <td>
+                            <%=reservation.hotel.name%>
+                        </td>
+                        <td>
+                            <%=reservation.roomType%>
+                        </td>
+                        <td>
+                            <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+                        </td>
+                        <td>
+                            <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+                        </td>
+                        <td rowspan="2"><button>View Details</button></td>
+                    </tr>
+                    <% })%>
+            </table>
+            <%}%>
+</body>
+
+</html>
