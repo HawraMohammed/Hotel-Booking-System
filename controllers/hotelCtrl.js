@@ -1,3 +1,4 @@
+const User = require("../models/user");
 const Hotel = require("../models/hotel");
 const Reservation = require("../models/reservation");
 const index = async (req, res) => {
@@ -23,6 +24,12 @@ const newReservation = async (req, res) => {
 }
 const createReservation = async (req, res) => {
     try {
+        const findExistingRes = await Reservation.findOne({
+            user: req.session.user._id,
+            checkIn: { $lt: new Date(req.body.checkOut) },
+            checkOut: { $gt: new Date(req.body.checkIn) }
+        });
+        if (findExistingRes) return res.send('There is an exisiting reservation within this period');
 
         const hotel = await Hotel.findById(req.params.hotelid);
         const roomType = hotel.rooms.find(
@@ -31,7 +38,8 @@ const createReservation = async (req, res) => {
         const reservations = await Reservation.find({
             hotel: req.params.hotelid, roomType: req.body.roomType,
             checkIn: { $lt: new Date(req.body.checkOut) },
-            checkOut: { $gt: new Date(req.body.checkIn) }
+            checkOut: { $gt: new Date(req.body.checkIn) },
+            status: 'confirmed'
         });
         const availableRooms = roomType.quantity - reservations.length;
         if (availableRooms <= 0)
@@ -53,7 +61,7 @@ const createReservation = async (req, res) => {
             price: price,
             paymentMethod: req.body.paymentMethod
         });
-        res.redirect('/hotels');
+        res.redirect(`/users/${req.session.user._id}/reservations`);
     }
     catch (err) { console.log(err.message) }
 }

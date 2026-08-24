@@ -17,7 +17,13 @@ const reservationSchema = new mongoose.Schema({
     checkOut: { type: Date, required: true },
     numOfNights: { type: Number, required: true },
     price: { type: Number, required: true },
-    paymentMethod: { type: String, enum: ['Benefit Pay', 'Cash', 'Apple Pay', 'Credit Card'], required: true }
+    paymentMethod: { type: String, enum: ['Benefit Pay', 'Cash', 'Apple Pay', 'Credit Card'], required: true },
+    status: {
+        type: String,
+        enum: ['confiremed', 'cancelled', 'completed'],
+        required: true,
+        default: 'confiremed'
+    }
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);

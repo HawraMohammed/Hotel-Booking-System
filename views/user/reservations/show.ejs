@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reservation details</title>
+</head>
+
+<body>
+    <%- include('../../partials/_navbar') %>
+        <h1>Reservation at <%=reservation.hotel.name%>,<%=reservation.hotel.location%>
+        </h1>
+        <ul>
+            <li>
+                Room type: <%=reservation.roomType%>
+            </li>
+            <li>
+                Number of guests: <%=reservation.numOfGuests%>
+            </li>
+            <li>
+                check-in date: <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+            </li>
+            <li>
+                check-out: <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+            </li>
+            <li>
+                Total price: <%=reservation.price%>
+            </li>
+            <li>
+                Payment Method:<%=reservation.paymentMethod%>
+            </li>
+            <li>
+                Reservation status: <%=reservation.status%>
+            </li>
+        </ul>
+        <%if(reservation.status==='confiremed' ){%>
+            <form action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT" method="POST">
+                <button type="submit" class="cancel">Cancel Reservation</button>
+            </form>
+            <%}%>
+
+                <%- include('../../partials/_footer') %>
+</body>
+
+</html>

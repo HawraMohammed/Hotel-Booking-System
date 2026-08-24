@@ -8,36 +8,52 @@
 </head>
 
 <body>
-    <h1>My reservations</h1>
-    <%if(reservations.length==0){%>
-        <p>No reservations</p>
-        <%}else{%>
-            <table>
-                <tr>
-                    <td>Hotel name</td>
-                    <td>Room Type</td>
-                    <td>Check-in date</td>
-                    <td>Check-out date</td>
-                </tr>
-                <%reservations.forEach((reservation)=>{%>
+    <%- include('../../partials/_navbar') %>
+        <h1>My reservations</h1>
+        <%if(reservations.length==0){%>
+            <p>No reservations</p>
+            <%}else{%>
+                <table>
                     <tr>
-                        <td>
-                            <%=reservation.hotel.name%>
-                        </td>
-                        <td>
-                            <%=reservation.roomType%>
-                        </td>
-                        <td>
-                            <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
-                        </td>
-                        <td>
-                            <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
-                        </td>
-                        <td rowspan="2"><button>View Details</button></td>
+                        <td>Hotel name</td>
+                        <td>Room Type</td>
+                        <td>Check-in date</td>
+                        <td>Check-out date</td>
+                        <td>Status</td>
                     </tr>
-                    <% })%>
-            </table>
-            <%}%>
+                    <%reservations.forEach((reservation)=>{%>
+                        <tr>
+                            <td>
+                                <%=reservation.hotel.name%>
+                            </td>
+                            <td>
+                                <%=reservation.roomType%>
+                            </td>
+                            <td>
+                                <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+                            </td>
+                            <td>
+                                <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+                            </td>
+                            <td>
+                                <%=reservation.status%>
+                            </td>
+                            <td><a href="/users/<%=user._id%>/reservations/<%=reservation._id%>">View Details</a><br>
+                                <%if(reservation.status==='confiremed' ){%>
+                                    <form
+                                        action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
+                                        method="POST">
+                                        <button type="submit" class="cancel">Cancel Reservation</button>
+                                    </form>
+                                    <%}%>
+                            </td>
+
+                        </tr>
+                        <% })%>
+                </table>
+                <%}%>
+
+                    <%- include('../../partials/_footer') %>
 </body>
 
 </html>
