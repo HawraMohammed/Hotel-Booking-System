@@ -53,95 +53,98 @@
             </div>
 
         </div>
-        <form action="/hotels/<%=hotel._id%>/comments" method="post" class="comment">
-            <div class="rating">
-                <input type="hidden" name="rating" value="0">
-                <label>★</label>
-                <label>★</label>
-                <label>★</label>
-                <label>★</label>
-                <label>★</label>
-            </div>
-            <label for="title">Title</label>
-            <input type="text" name="title">
-            <label for="description">Description</label>
-            <textarea name="description"></textarea>
-            <button type="submit">Submit</button>
-        </form>
-        <% comments.forEach((comment)=>{%>
-            <div class="comment-container">
-                <div class="comment">
-                    <div class="stars">
-                        <% for (let i=1; i <=5; i++) { %>
-                            <% if(i <=Number(comment.stars)){%> <label style="color:orange;">★</label>
-                                <%}else{%> <label style="color:grey;">★</label>
-                                    <%} } %>
-                    </div>
-                    <h3>
-                        <%= comment.title %>
-                    </h3>
-                    <p>
-                        <%= comment.description %>
-                    </p>
-                    <% if (comment.user.equals(user._id)) { %> <button>Edit</button>
-                        <form action="/hotels/<%=hotel._id%>/comments/<%=comment._id%>?_method=delete" method="post">
-                            <button type="submit">Delete</button>
-                        </form>
-                        <%}%>
+        <%if(user){%>
+            <form action="/hotels/<%=hotel._id%>/comments" method="post" class="comment">
+                <div class="rating">
+                    <input type="hidden" name="rating" value="0">
+                    <label>★</label>
+                    <label>★</label>
+                    <label>★</label>
+                    <label>★</label>
+                    <label>★</label>
                 </div>
-                <form action="/hotels/<%=hotel._id%>/comments/<%=comment._id%>?_method=put" method="post"
-                    class="comment" style="display: none;">
-                    <div class="rating">
-                        <input type="hidden" name="rating" value="<%=comment.stars%>">
-                        <% for (let i=1; i <=5; i++) { %>
-                            <% if(i <=comment.stars){%> <label style="color:orange;">★</label>
-                                <%}else{%> <label style="color:grey;">★</label>
-                                    <%} } %>
+                <label for="title">Title</label>
+                <input type="text" name="title">
+                <label for="description">Description</label>
+                <textarea name="description"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            <%}%>
+                <% comments.forEach((comment)=>{%>
+                    <div class="comment-container">
+                        <div class="comment">
+                            <div class="stars">
+                                <% for (let i=1; i <=5; i++) { %>
+                                    <% if(i <=Number(comment.stars)){%> <label style="color:orange;">★</label>
+                                        <%}else{%> <label style="color:grey;">★</label>
+                                            <%} } %>
+                            </div>
+                            <h3>
+                                <%= comment.title %>
+                            </h3>
+                            <p>
+                                <%= comment.description %>
+                            </p>
+                            <% if (user && comment.user.equals(user._id)) { %> <button>Edit</button>
+                                <form action="/hotels/<%=hotel._id%>/comments/<%=comment._id%>?_method=delete"
+                                    method="post">
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <%}%>
+                        </div>
+                        <form action="/hotels/<%=hotel._id%>/comments/<%=comment._id%>?_method=put" method="post"
+                            class="comment" style="display: none;">
+                            <div class="rating">
+                                <input type="hidden" name="rating" value="<%=comment.stars%>">
+                                <% for (let i=1; i <=5; i++) { %>
+                                    <% if(i <=comment.stars){%> <label style="color:orange;">★</label>
+                                        <%}else{%> <label style="color:grey;">★</label>
+                                            <%} } %>
+                            </div>
+                            <label for="title">Title</label>
+                            <input type="text" name="title" value="<%=comment.title%>">
+                            <label for="description">Description</label>
+                            <textarea name="description"><%=comment.description%></textarea>
+                            <button type="submit">Save changes</button>
+                        </form>
                     </div>
-                    <label for="title">Title</label>
-                    <input type="text" name="title" value="<%=comment.title%>">
-                    <label for="description">Description</label>
-                    <textarea name="description"><%=comment.description%></textarea>
-                    <button type="submit">Save changes</button>
-                </form>
-            </div>
-            <% })%>
-                <%- include('../../partials/_footer') %>
-                    <script>
-                        const ratings = document.querySelectorAll('.rating');
+                    <% })%>
+                        <%- include('../../partials/_footer') %>
+                            <script>
+                                const ratings = document.querySelectorAll('.rating');
 
-                        ratings.forEach((rating) => {
+                                ratings.forEach((rating) => {
 
-                            const stars = rating.querySelectorAll('label');
-                            const saveValue = rating.querySelector('input');
+                                    const stars = rating.querySelectorAll('label');
+                                    const saveValue = rating.querySelector('input');
 
-                            stars.forEach((star, index) => {
+                                    stars.forEach((star, index) => {
 
-                                star.addEventListener('click', () => {
+                                        star.addEventListener('click', () => {
 
-                                    stars.forEach((s, i) => {
-                                        s.style.color = i <= index ? 'orange' : 'gray';
+                                            stars.forEach((s, i) => {
+                                                s.style.color = i <= index ? 'orange' : 'gray';
+                                            });
+
+                                            saveValue.value = index + 1;
+                                        });
+
+                                    });
+                                });
+                                const comments = document.querySelectorAll('.comment-container');
+
+                                comments.forEach((comment) => {
+
+                                    const display = comment.querySelector('div.comment');
+                                    const edit = comment.querySelector('form.comment');
+
+                                    comment.querySelector('button').addEventListener('click', () => {
+                                        display.style.display = 'none';
+                                        edit.style.display = 'block';
                                     });
 
-                                    saveValue.value = index + 1;
                                 });
-
-                            });
-                        });
-                        const comments = document.querySelectorAll('.comment-container');
-
-                        comments.forEach((comment) => {
-
-                            const display = comment.querySelector('div.comment');
-                            const edit = comment.querySelector('form.comment');
-
-                            comment.querySelector('button').addEventListener('click', () => {
-                                display.style.display = 'none';
-                                edit.style.display = 'block';
-                            });
-
-                        });
-                    </script>
+                            </script>
 </body>
 
 </html>

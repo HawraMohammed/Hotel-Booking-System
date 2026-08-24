@@ -1,10 +1,86 @@
-const User = require("../models/user");
 const Hotel = require("../models/hotel");
 const Reservation = require("../models/reservation");
 const index = async (req, res) => {
     try {
         const hotels = await Hotel.find();
         res.render('user/hotels/index.ejs', { hotels });
+    }
+    catch (err) { console.log(err.message); }
+}
+
+const handleSearch = async (req, res) => {
+    try {
+        let hotels;
+
+        if (req.body.action === 'search') {
+            if (req.body.filter === "location") {
+                hotels = await Hotel.find({
+                    location: {
+                        $regex: req.body.search,
+                        $options: 'i'
+                    }
+                });
+            }
+            else {
+                hotels = await Hotel.find({
+                    name: {
+                        $regex: req.body.search,
+                        $options: 'i'
+                    }
+                });
+            }
+        }
+        else if (req.body.action === 'filter') {
+            console.log(req.body.filter);
+            if (req.body.filter === "priceAsc") {
+                hotels = await Hotel.aggregate([
+                    {
+                        $addFields: {
+                            lowestPrice: { $min: "$rooms.pricePerNight" }
+                        }
+                    },
+                    {
+                        $sort: {
+                            lowestPrice: 1
+                        }
+                    }
+                ]);
+            }
+            else if (req.body.filter === "priceDesc") {
+                hotels = await Hotel.aggregate([
+                    {
+                        $addFields: {
+                            highestPrice: { $max: "$rooms.pricePerNight" }
+                        }
+                    },
+                    {
+                        $sort: {
+                            highestPrice: -1
+                        }
+                    }
+                ]);
+            }
+
+            else if (req.body.filter === "ratings") {
+                hotels = hotels = await Hotel.aggregate([
+                    {
+                        $addFields: {
+                            ratings: { $avg: "$comments.stars" }
+                        }
+                    },
+                    {
+                        $sort: {
+                            ratings: -1
+                        }
+                    }
+                ]);
+            }
+            else {
+                hotels = await Hotel.find();
+            }
+
+        }
+        res.json(hotels);
     }
     catch (err) { console.log(err.message); }
 }
@@ -105,4 +181,4 @@ const deleteComment = async (req, res) => {
     }
     catch (err) { console.log(err.message) }
 }
-module.exports = { index, showHotel, newReservation, createReservation, createComment, updateComment, deleteComment };
+module.exports = { index, handleSearch, showHotel, newReservation, createReservation, createComment, updateComment, deleteComment };
