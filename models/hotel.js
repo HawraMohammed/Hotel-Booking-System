@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    pricePerNight: { type: Number, required: true },
     stars: { type: Number, required: true },
     user: {
         type: mongoose.Schema.Types.ObjectId,

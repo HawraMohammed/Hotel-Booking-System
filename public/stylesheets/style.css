@@ -63,3 +63,32 @@ body {
   box-sizing: border-box;
   font-size: 15px;
 }
+
+.rating label {
+  color: grey;
+}
+
+.comment {
+  width: 500px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
+
+.comment textArea,
+.comment input {
+  width: 250px;
+  height: 20px;
+  display: flex;
+}
+
+.comment button {
+  width: 100px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
