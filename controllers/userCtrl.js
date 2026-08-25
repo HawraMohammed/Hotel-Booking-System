@@ -7,6 +7,9 @@ const index = async (req, res) => {
         const reservations = await Reservation.find({ user: req.session.user._id }).populate('hotel').sort({ checkIn: -1 });;
 
         for (const reservation of reservations) {
+            console.log("NOW:", new Date());
+            console.log("CHECKOUT:", reservation.checkOut);
+            console.log("STATUS:", reservation.status);
             if (new Date() >= reservation.checkOut && reservation.status === 'confirmed') {
                 reservation.status = 'completed';
                 await reservation.save();

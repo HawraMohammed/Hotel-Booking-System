@@ -20,7 +20,7 @@ const reservationSchema = new mongoose.Schema({
     paymentMethod: { type: String, enum: ['Benefit Pay', 'Cash', 'Apple Pay', 'Credit Card'], required: true },
     status: {
         type: String,
-        enum: ['confiremed', 'cancelled', 'completed'],
+        enum: ['confirmed', 'cancelled', 'completed'],
         required: true,
         default: 'confiremed'
     }

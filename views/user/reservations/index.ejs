@@ -39,7 +39,7 @@
                                 <%=reservation.status%>
                             </td>
                             <td><a href="/users/<%=user._id%>/reservations/<%=reservation._id%>">View Details</a><br>
-                                <%if(reservation.status==='confiremed' ){%>
+                                <%if(reservation.status==='confirmed' ){%>
                                     <form
                                         action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
                                         method="POST">

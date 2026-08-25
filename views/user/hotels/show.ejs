@@ -14,7 +14,20 @@
     <%- include('../../partials/_navbar') %>
         <div class="hotel-container">
             <div class="pict-details">
-                <div class="picture"><img src="<%=hotel.picture%>"></div>
+                <div class="gallery">
+                    <div class="mainImage-container">
+                        <button type="button" onclick="previousImage()">❮</button>
+                        <div class="main-image"> <img src="<%= hotel.pictures[0].url %>"></div>
+                        <button type="button" onclick="nextImage()">❯</button>
+                    </div>
+                    <div class="thumbnail">
+                        <% hotel.pictures.forEach(picture=> { %>
+                            <div class="picture">
+                                <img src="<%= picture.url %>">
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
                 <div class="details">
                     <h2>
                         <%=hotel.name%>
@@ -167,6 +180,24 @@
                                         position: initialLocation,
                                         map: map
                                     });
+                                }
+                                const mainImage = document.body.querySelector(".main-image img");
+                                const pictures = document.body.querySelectorAll(".picture img");
+                                let currentImage = 0;
+                                function showImage() {
+                                    mainImage.src = pictures[currentImage].src;
+                                }
+                                function nextImage() {
+                                    currentImage++;
+                                    if (currentImage >= pictures.length)
+                                        currentImage = 0;
+                                    showImage();
+                                }
+                                function previousImage() {
+                                    currentImage--;
+                                    if (currentImage < 0)
+                                        currentImage = pictures.length - 1;
+                                    showImage();
                                 }
                             </script>
                             <script

@@ -34,7 +34,7 @@
                 Reservation status: <%=reservation.status%>
             </li>
         </ul>
-        <%if(reservation.status==='confiremed' ){%>
+        <%if(reservation.status==='confirmed' ){%>
             <form action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT" method="POST">
                 <button type="submit" class="cancel">Cancel Reservation</button>
             </form>

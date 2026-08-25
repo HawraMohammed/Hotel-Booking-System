@@ -24,23 +24,25 @@
                 <% hotels.forEach((hotel)=>{%>
                     <div class="hotel-container">
                         <div class="pict-details">
-                            <div class="picture"><img src="<%=hotel.picture%>"></div>
-                            <div class="details">
-                                <h2>
-                                    <%=hotel.name%>
-                                </h2>
-                                <p>
-                                    <%=hotel.location%>
-                                </p>
-                                <p>
-                                    <%=hotel.description%>
-                                </p>
-                            </div>
-                            <div class="buttons">
-                                <a href="/hotels/<%=hotel._id%>">View</a>
+                            <%if(hotel.pictures.length>0){%>
+                                <div class="picture"><img src="<%=hotel.pictures[0].url%>"></div>
+                                <%}%>
+                                    <div class="details">
+                                        <h2>
+                                            <%=hotel.name%>
+                                        </h2>
+                                        <p>
+                                            <%=hotel.location%>
+                                        </p>
+                                        <p>
+                                            <%=hotel.description%>
+                                        </p>
+                                    </div>
+                                    <div class="buttons">
+                                        <a href="/hotels/<%=hotel._id%>">View</a>
 
-                                <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
-                            </div>
+                                        <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
+                                    </div>
                         </div>
                         <div class="services">
                             <%hotel.services.forEach((service)=>{%>
