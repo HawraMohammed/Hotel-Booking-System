@@ -14,29 +14,34 @@
     <%- include('../partials/_navbar') %>
         <div class="hotel-container">
             <div class="pict-details">
-                <div class="picture"><img src="<%=hotel.picture%>"></div>
-                <div class="details">
-                    <h2>
-                        <%=hotel.name%>
-                    </h2>
-                    <p>
-                        <%=hotel.location%>
-                    </p>
-                    <p>
-                        <%=hotel.description%>
-                    </p>
-                </div>
-                <div id="map"></div>
+                <% hotel.pictures.forEach(picture=> { %>
+                    <div class="picture">
+                        <img src="<%= picture.url %>">
+                    </div>
 
-                <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
-                <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
-                <div class="buttons">
+                    <% }) %>
+                        <div class="details">
+                            <h2>
+                                <%=hotel.name%>
+                            </h2>
+                            <p>
+                                <%=hotel.location%>
+                            </p>
+                            <p>
+                                <%=hotel.description%>
+                            </p>
+                        </div>
+                        <div id="map"></div>
 
-                    <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                    <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                </div>
+                        <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
+                        <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
+                        <div class="buttons">
+
+                            <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
+                            <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
             </div>
             <div class="services">
                 <%hotel.services.forEach((service)=>{%>

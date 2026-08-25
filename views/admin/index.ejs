@@ -15,26 +15,28 @@
             <% hotels.forEach((hotel)=>{%>
                 <div class="hotel-container">
                     <div class="pict-details">
-                        <div class="picture"><img src="<%=hotel.picture%>"></div>
-                        <div class="details">
-                            <h2>
-                                <%=hotel.name%>
-                            </h2>
-                            <p>
-                                <%=hotel.location%>
-                            </p>
-                            <p>
-                                <%=hotel.description%>
-                            </p>
-                        </div>
-                        <div class="buttons">
-                            <a href="/admin/hotels/<%=hotel._id%>">View</a>
-                            <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                            <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                                <button type="submit">Delete</button>
-                            </form>
+                        <%if(hotel.pictures.length>0){%>
+                            <div class="picture"><img src="<%=hotel.pictures[0].url%>"></div>
+                            <%}%>
+                                <div class="details">
+                                    <h2>
+                                        <%=hotel.name%>
+                                    </h2>
+                                    <p>
+                                        <%=hotel.location%>
+                                    </p>
+                                    <p>
+                                        <%=hotel.description%>
+                                    </p>
+                                </div>
+                                <div class="buttons">
+                                    <a href="/admin/hotels/<%=hotel._id%>">View</a>
+                                    <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
+                                    <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
+                                        <button type="submit">Delete</button>
+                                    </form>
 
-                        </div>
+                                </div>
                     </div>
                     <div class="services">
                         <%hotel.services.forEach((service)=>{%>

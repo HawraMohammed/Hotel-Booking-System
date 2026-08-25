@@ -1,4 +1,6 @@
 const Hotel = require('../models/hotel');
+const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
+
 const index = async (req, res) => {
     try {
         const hotels = await Hotel.find();
@@ -14,6 +16,19 @@ const newHotel = async (req, res) => {
 }
 const createHotel = async (req, res) => {
     try {
+
+        const pictures = [];
+        if (req.files.length > 0) {
+            for (const file of req.files) {
+                const result = await uploadToCloudinary(file);
+
+                pictures.push({
+                    url: result.secure_url,
+                    public_id: result.public_id
+                });
+            }
+        }
+
         const roomTypes = Array.isArray(req.body.roomType)
             ? req.body.roomType
             : [req.body.roomType];
@@ -50,7 +65,7 @@ const createHotel = async (req, res) => {
                 longitude: req.body.longitude
             },
             rooms,
-            picture: req.body.picture,
+            pictures: pictures,
             services: servicesArray,
         });
 
@@ -67,6 +82,33 @@ const editHotel = async (req, res) => {
 }
 const updateHotel = async (req, res) => {
     try {
+        console.log("FILES:", req.files);
+        const hotel = await Hotel.findById(req.params.hotelid);
+        if (req.body.deletePictures) {
+            let deletePictures = req.body.deletePictures;
+            if (!Array.isArray(deletePictures)) {
+                deletePictures = [deletePictures];
+            }
+            for (const publicId of deletePictures) {
+                await cloudinary.uploader.destroy(publicId);
+                hotel.pictures = hotel.pictures.filter(
+                    picture => picture.public_id !== publicId
+                );
+            }
+
+        }
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+
+                const result = await uploadToCloudinary(file);
+
+                hotel.pictures.push({
+                    url: result.secure_url,
+                    public_id: result.public_id
+                });
+            }
+        }
+        await hotel.save();
         const roomTypes = Array.isArray(req.body.roomType)
             ? req.body.roomType
             : [req.body.roomType];
@@ -103,7 +145,6 @@ const updateHotel = async (req, res) => {
                 longitude: req.body.longitude
             },
             rooms,
-            picture: req.body.picture,
             services: servicesArray,
         });
 
@@ -120,6 +161,12 @@ const showHotel = async (req, res) => {
 }
 const deleteHotel = async (req, res) => {
     try {
+        const hotel = await Hotel.findById(req.params.hotelid);
+        if (hotel.pictures.length > 0) {
+            for (const picture of hotel.pictures) {
+                await cloudinary.uploader.destroy(picture.public_id);
+            }
+        }
         await Hotel.findByIdAndDelete(req.params.hotelid);
         res.redirect('/admin/hotels');
     }

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const isAdmin = require('../middleware/isAdmin');
+const upload = require("../middleware/upload");
 const adminCtrl = require('../controllers/adminCtrl');
 router.get('/hotels', adminCtrl.index);
 router.get('/hotels/new', adminCtrl.newHotel);
-router.post('/hotels', adminCtrl.createHotel);
+router.post('/hotels', upload.array("pictures", 5), adminCtrl.createHotel);
 router.get('/hotels/:hotelid/edit', adminCtrl.editHotel);
-router.put('/hotels/:hotelid', adminCtrl.updateHotel);
+router.put('/hotels/:hotelid', upload.array("pictures", 5), adminCtrl.updateHotel);
 router.get('/hotels/:hotelid', adminCtrl.showHotel);
 router.delete('/hotels/:hotelid', adminCtrl.deleteHotel);
 module.exports = router;

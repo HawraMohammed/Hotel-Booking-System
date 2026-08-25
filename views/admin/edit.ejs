@@ -9,7 +9,7 @@
 
 <body>
     <%- include('../partials/_navbar') %>
-        <form action="/admin/hotels/<%=hotel._id%>?_method=put" method="post">
+        <form action="/admin/hotels/<%=hotel._id%>?_method=put" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Hotel detials</legend>
                 <label for="name">Hotel name</label>
@@ -23,7 +23,20 @@
                 <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
                 <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
                 <label for="picture">Add pictures</label>
-                <input type="text" name="picture" id="picture" value="<%=hotel.picture%>">
+                <input type="file" name="pictures" accept="image/*" multiple>
+                <%if(hotel.pictures.length>0){%>
+                    <% hotel.pictures.forEach(picture=> { %>
+
+                        <div>
+                            <img src="<%= picture.url %>" width="150">
+
+                            <label>
+                                <input type="checkbox" name="deletePictures" value="<%= picture.public_id %>">
+                                Delete this picture
+                            </label>
+                        </div>
+
+                        <% })} %>
             </fieldset>
             <fieldset>
                 <legend>Services</legend>
@@ -151,6 +164,26 @@
                     if (e.target.classList.contains('remove-room')) {
                         e.target.parentElement.remove();
                     }
+
+                });
+                const pictureInput = document.querySelector('input[name="pictures"]');
+
+                let selectedFiles = [];
+
+                pictureInput.addEventListener("change", function () {
+
+                    for (const file of this.files) {
+                        selectedFiles.push(file);
+                    }
+
+
+                    const dataTransfer = new DataTransfer();
+
+                    for (const file of selectedFiles) {
+                        dataTransfer.items.add(file);
+                    }
+
+                    pictureInput.files = dataTransfer.files;
 
                 });
                 let map;

@@ -10,7 +10,7 @@
 <body>
     <%- include('../partials/_navbar') %>
 
-        <form action="/admin/hotels" method="post">
+        <form action="/admin/hotels" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Hotel detials</legend>
                 <label for="name">Hotel name</label>
@@ -23,8 +23,8 @@
 
                 <input type="hidden" name="latitude" id="latitude">
                 <input type="hidden" name="longitude" id="longitude">
-                <label for="picture">Add pictures</label>
-                <input type="text" name="picture" id="picture">
+                <label for="pictures">Add pictures</label>
+                <input type="file" name="pictures" accept="image/*" multiple>
             </fieldset>
             <fieldset>
                 <legend>Services</legend>

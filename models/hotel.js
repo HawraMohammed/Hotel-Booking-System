@@ -24,7 +24,17 @@ const hotelSchema = new mongoose.Schema({
         longitude: Number
     },
     rooms: [roomSchema],
-    picture: { type: String, required: true },
+    pictures: [{
+        url: {
+            type: String,
+            required: true
+        },
+        public_id: {
+            type: String,
+            required: true
+        }
+    }
+    ],
     services: { type: [String], required: true },
     comments: [commentSchema]
 });
