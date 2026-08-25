@@ -45,6 +45,10 @@ const createHotel = async (req, res) => {
             name: req.body.name,
             description: req.body.description,
             location: req.body.location,
+            map: {
+                latitude: req.body.latitude,
+                longitude: req.body.longitude
+            },
             rooms,
             picture: req.body.picture,
             services: servicesArray,
@@ -94,6 +98,10 @@ const updateHotel = async (req, res) => {
             name: req.body.name,
             description: req.body.description,
             location: req.body.location,
+            map: {
+                latitude: req.body.latitude,
+                longitude: req.body.longitude
+            },
             rooms,
             picture: req.body.picture,
             services: servicesArray,
