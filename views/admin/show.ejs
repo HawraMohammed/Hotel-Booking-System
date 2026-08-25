@@ -14,34 +14,42 @@
     <%- include('../partials/_navbar') %>
         <div class="hotel-container">
             <div class="pict-details">
-                <% hotel.pictures.forEach(picture=> { %>
-                    <div class="picture">
-                        <img src="<%= picture.url %>">
+                <div class="gallery">
+                    <div class="mainImage-container">
+                        <button type="button" onclick="previousImage()">❮</button>
+                        <div class="main-image"> <img src="<%= hotel.pictures[0].url %>"></div>
+                        <button type="button" onclick="nextImage()">❯</button>
                     </div>
+                    <div class="thumbnail">
+                        <% hotel.pictures.forEach(picture=> { %>
+                            <div class="picture">
+                                <img src="<%= picture.url %>">
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+                <div class="details">
+                    <h2>
+                        <%=hotel.name%>
+                    </h2>
+                    <p>
+                        <%=hotel.location%>
+                    </p>
+                    <p>
+                        <%=hotel.description%>
+                    </p>
+                </div>
+                <div id="map"></div>
 
-                    <% }) %>
-                        <div class="details">
-                            <h2>
-                                <%=hotel.name%>
-                            </h2>
-                            <p>
-                                <%=hotel.location%>
-                            </p>
-                            <p>
-                                <%=hotel.description%>
-                            </p>
-                        </div>
-                        <div id="map"></div>
+                <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
+                <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
+                <div class="buttons">
 
-                        <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
-                        <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
-                        <div class="buttons">
-
-                            <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                            <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </div>
+                    <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
+                    <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
             <div class="services">
                 <%hotel.services.forEach((service)=>{%>
@@ -62,41 +70,60 @@
                     </div>
                     <%})%>
             </div>
-
         </div>
-        <script>  let map;
-            let marker;
+        <% comments.forEach((comment)=>{%>
+            <div class="comment-container">
+                <div class="comment">
+                    <div class="stars">
+                        <% for (let i=1; i <=5; i++) { %>
+                            <% if(i <=Number(comment.stars)){%> <label style="color:orange;">★</label>
+                                <%}else{%> <label style="color:grey;">★</label>
+                                    <%} } %>
+                    </div>
+                    <h3>
+                        <%= comment.title %>
+                    </h3>
+                    <p>
+                        <%= comment.description %>
+                    </p>
+                </div>
+            </div>
+            <%})%>
 
-            function initMap() {
+                <script>  let map;
+                    let marker;
 
-                const initialLocation = {
-                    lat: Number(document.getElementById("latitude").value),
-                    lng: Number(document.getElementById("longitude").value)
-                };
+                    function initMap() {
 
-                map = new google.maps.Map(document.getElementById("map"), {
-                    center: initialLocation,
-                    zoom: 12
-                });
+                        const initialLocation = {
+                            lat: Number(document.getElementById("latitude").value),
+                            lng: Number(document.getElementById("longitude").value)
+                        };
 
-                marker = new google.maps.Marker({
-                    position: initialLocation,
-                    map: map
-                });
-            }
-        </script>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
-            async defer></script>
+                        map = new google.maps.Map(document.getElementById("map"), {
+                            center: initialLocation,
+                            zoom: 12
+                        });
 
-        <%- include('../partials/_footer') %>
-            <style>
-                #map {
-                    width: 100%;
-                    height: 400px;
-                    border: 2px solid red;
-                }
-            </style>
+                        marker = new google.maps.Marker({
+                            position: initialLocation,
+                            map: map
+                        });
+                    }
+                </script>
+                <script
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
+                    async defer></script>
+
+                <%- include('../partials/_footer') %>
+                    <style>
+                        #map {
+                            width: 100%;
+                            height: 400px;
+                            border: 2px solid red;
+                        }
+                    </style>
+                    <script src="/js/imageGallery.js"></script>
 </body>
 
 </html>

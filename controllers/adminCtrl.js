@@ -155,7 +155,7 @@ const updateHotel = async (req, res) => {
 const showHotel = async (req, res) => {
     try {
         const hotel = await Hotel.findById(req.params.hotelid);
-        res.render('admin/show.ejs', { hotel });
+        res.render('admin/show.ejs', { hotel, comments: hotel.comments });
     }
     catch (err) { console.log(err.message) }
 }
