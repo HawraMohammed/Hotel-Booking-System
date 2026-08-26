@@ -4,52 +4,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/hotel.css" />
+    <link rel="stylesheet" href="/stylesheets/reservation.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>new reservation</title>
 </head>
 
 <body>
     <%- include('../../partials/_navbar') %>
-        <h2>Reservation at <%=hotel.name%>
+        <h2 class="reservation-title">
+            Reservation at <%= hotel.name %>
         </h2>
-        <form action="/hotels/<%=hotel._id%>/reservations" method="post">
-            <div id="rooms-container">
 
-                <div class="room">
-                    <label>Room Type</label>
-                    <select name="roomType">
-                        <%hotel.rooms.forEach((room)=>{%>
-                            <option value="<%=room.type%>" data-price="<%=room.pricePerNight%>"
-                                data-guests="<%=room.capacity%>">
-                                <%=room.type%>
-                            </option>
+        <form action="/hotels/<%= hotel._id %>/reservations" method="post" class="reservation-form">
 
-                            <%})%>
-                    </select>
-
-                    <label for="pricePerNight">Price Per Night</label>
-                    <input type="number" name="pricePerNight" readonly value="<%=hotel.rooms[0].pricePerNight%>">
-
-                    <label for="numOfGuests">Number of guests</label>
-                    <input type="number" name="numOfGuests" readonly value="<%=hotel.rooms[0].capacity%>">
+            <% if (error) { %>
+                <div class="reservation-error">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>
+                        <%= error %>
+                    </span>
                 </div>
-                <label for="checkIn">Check-in</label>
-                <input type="date" name="checkIn">
+                <% } %>
+                    <div id="rooms-container">
 
-                <label for="checkOut">Check-out</label>
-                <input type="date" name="checkOut" disabled>
+                        <div class="room">
 
-                <label for="total">Total</label>
-                <input type="text" name="total" readonly>
+                            <label for="roomType">
+                                Room Type
+                            </label>
 
-                <label for="paymentMethod">Payment Method</label>
-                <select name="paymentMethod">
-                    <option value="Benefit Pay">Benefit Pay</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Apple Pay">Apple Pay</option>
-                    <option value="Credit Card">Credit Card</option>
-                </select>
-            </div>
-            <button type="submit">Reserve</button>
+                            <select name="roomType" id="roomType">
+
+                                <% hotel.rooms.forEach((room)=> { %>
+
+                                    <option value="<%= room.type %>" data-price="<%= room.pricePerNight %>"
+                                        data-guests="<%= room.capacity %>">
+                                        <%= room.type %>
+                                    </option>
+
+                                    <% }) %>
+
+                            </select>
+
+
+                            <label for="pricePerNight">
+                                Price Per Night
+                            </label>
+
+                            <input type="number" name="pricePerNight" id="pricePerNight" readonly
+                                value="<%= hotel.rooms[0].pricePerNight %>">
+
+
+                            <label for="numOfGuests">
+                                Number of Guests
+                            </label>
+
+                            <input type="number" name="numOfGuests" id="numOfGuests" readonly
+                                value="<%= hotel.rooms[0].capacity %>">
+
+                        </div>
+
+
+                        <div class="reservation-dates">
+
+                            <div class="date-field">
+
+                                <label for="checkIn">
+                                    Check-in
+                                </label>
+
+                                <input type="date" name="checkIn" id="checkIn">
+
+                            </div>
+
+
+                            <div class="date-field">
+
+                                <label for="checkOut">
+                                    Check-out
+                                </label>
+
+                                <input type="date" name="checkOut" id="checkOut" disabled>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="reservation-total">
+
+                            <label for="total">
+                                Total
+                            </label>
+
+                            <input type="text" name="total" id="total" readonly>
+
+                        </div>
+
+
+                        <div class="payment-field">
+
+                            <label for="paymentMethod">
+                                Payment Method
+                            </label>
+
+                            <select name="paymentMethod" id="paymentMethod">
+
+                                <option value="Benefit Pay">
+                                    Benefit Pay
+                                </option>
+
+                                <option value="Cash">
+                                    Cash
+                                </option>
+
+                                <option value="Apple Pay">
+                                    Apple Pay
+                                </option>
+
+                                <option value="Credit Card">
+                                    Credit Card
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="reserve-submit">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Reserve
+                    </button>
+
         </form>
         <%- include('../../partials/_footer') %>
             <script src="/js/handleDates.js"></script>

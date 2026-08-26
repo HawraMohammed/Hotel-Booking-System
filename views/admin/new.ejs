@@ -4,99 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/reservation.css" />
+    <link rel="stylesheet" href="/stylesheets/hotel.css" />
+    <link rel="stylesheet" href="/stylesheets/admin.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>Add new hotel</title>
 </head>
 
 <body>
     <%- include('../partials/_navbar') %>
+        <div class="admin-form-page">
+            <form action="/admin/hotels" method="post" enctype="multipart/form-data" class="admin-hotel-form">
+                <fieldset>
+                    <legend>Hotel detials</legend>
+                    <label for="name">Hotel name</label>
+                    <input type="text" name="name" id="name">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description">
+                    <label for="location">Location</label>
+                    <input type="text" name="location" id="location">
+                    <div id="map"></div>
 
-        <form action="/admin/hotels" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Hotel detials</legend>
-                <label for="name">Hotel name</label>
-                <input type="text" name="name" id="name">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description">
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location">
-                <div id="map"></div>
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
+                    <label for="pictures">Add pictures</label>
+                    <input type="file" name="pictures" accept="image/*" multiple>
+                </fieldset>
+                <fieldset class="services-fieldset">
+                    <legend>Services</legend>
+                    <label for="Wifi">
+                        <input type="checkbox" name="services" id="Wifi" value="Wifi">
+                        Wifi
+                    </label>
 
-                <input type="hidden" name="latitude" id="latitude">
-                <input type="hidden" name="longitude" id="longitude">
-                <label for="pictures">Add pictures</label>
-                <input type="file" name="pictures" accept="image/*" multiple>
-            </fieldset>
-            <fieldset>
-                <legend>Services</legend>
-                <label for="Wifi">
-                    <input type="checkbox" name="services" id="Wifi" value="Wifi">
-                    Wifi
-                </label>
+                    <label for="Swimming-Pool">
+                        <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool">
+                        Swimming Pool
+                    </label>
 
-                <label for="Swimming-Pool">
-                    <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool">
-                    Swimming Pool
-                </label>
+                    <label for="Room-Service">
+                        <input type="checkbox" name="services" id="Room-Service" value="Room Service">
+                        Room Service
+                    </label>
 
-                <label for="Room-Service">
-                    <input type="checkbox" name="services" id="Room-Service" value="Room Service">
-                    Room Service
-                </label>
+                    <label for="View">
+                        <input type="checkbox" name="services" id="View" value="View">
+                        View
+                    </label>
 
-                <label for="View">
-                    <input type="checkbox" name="services" id="View" value="View">
-                    View
-                </label>
+                    <label for="Gym">
+                        <input type="checkbox" name="services" id="Gym" value="Gym">
+                        Gym
+                    </label>
 
-                <label for="Gym">
-                    <input type="checkbox" name="services" id="Gym" value="Gym">
-                    Gym
-                </label>
+                    <label for="Spa">
+                        <input type="checkbox" name="services" id="Spa" value="Spa">
+                        Spa
+                    </label>
 
-                <label for="Spa">
-                    <input type="checkbox" name="services" id="Spa" value="Spa">
-                    Spa
-                </label>
+                    <label for="Parking">
+                        <input type="checkbox" name="services" id="Parking" value="Parking">
+                        Parking
+                    </label>
 
-                <label for="Parking">
-                    <input type="checkbox" name="services" id="Parking" value="Parking">
-                    Parking
-                </label>
+                    <label for="Non-smoking-rooms">
+                        <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms">
+                        Non-smoking rooms
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Rooms</legend>
 
-                <label for="Non-smoking-rooms">
-                    <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms">
-                    Non-smoking rooms
-                </label>
-            </fieldset>
-            <fieldset>
-                <legend>Rooms</legend>
+                    <div id="rooms-container">
 
-                <div id="rooms-container">
+                        <div class="room">
+                            <label>Room Type</label>
+                            <select name="roomType">
+                                <option value="Single">Single</option>
+                                <option value="Double">Double</option>
+                                <option value="Suite">Suite</option>
+                            </select>
 
-                    <div class="room">
-                        <label>Room Type</label>
-                        <select name="roomType">
-                            <option value="Single">Single</option>
-                            <option value="Double">Double</option>
-                            <option value="Suite">Suite</option>
-                        </select>
+                            <label>Price Per Night</label>
+                            <input type="number" name="pricePerNight" required>
 
-                        <label>Price Per Night</label>
-                        <input type="number" name="pricePerNight" required>
+                            <label>Capacity</label>
+                            <input type="number" name="capacity" required>
 
-                        <label>Capacity</label>
-                        <input type="number" name="capacity" required>
+                            <label>Quantity</label>
+                            <input type="number" name="quantity" required>
+                        </div>
 
-                        <label>Quantity</label>
-                        <input type="number" name="quantity" required>
                     </div>
 
-                </div>
-
-                <button type="button" id="add-room">Add Room Type</button>
-            </fieldset>
-            <button type="submit">Add hotel</button>
-        </form>
+                    <button type="button" id="add-room">Add Room Type</button>
+                </fieldset>
+                <button type="submit">Add hotel</button>
+            </form>
+        </div>
         <%- include('../partials/_footer') %>
             <script>
                 let map;

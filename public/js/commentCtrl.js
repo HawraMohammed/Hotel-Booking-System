@@ -10,24 +10,36 @@ ratings.forEach((rating) => {
         star.addEventListener('click', () => {
 
             stars.forEach((s, i) => {
-                s.style.color = i <= index ? 'orange' : 'gray';
+
+                s.style.color =
+                    i <= index ? 'orange' : 'gray';
+
             });
 
             saveValue.value = index + 1;
+
         });
 
     });
+
 });
+
+
 const comments = document.querySelectorAll('.comment-container');
 
 comments.forEach((comment) => {
 
-    const display = comment.querySelector('div.comment');
-    const edit = comment.querySelector('form.comment');
+    const display = comment.querySelector('.comment');
+    const edit = comment.querySelector('.edit-form');
+    const editButton = comment.querySelector('.edit-button');
 
-    comment.querySelector('button').addEventListener('click', () => {
+
+    editButton.addEventListener('click', () => {
+
         display.style.display = 'none';
+
         edit.style.display = 'block';
+
     });
 
 });

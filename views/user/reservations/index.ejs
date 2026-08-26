@@ -4,67 +4,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/hotel.css" />
+    <link rel="stylesheet" href="/stylesheets/reservation.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>dashboard</title>
 </head>
 
 <body>
     <%- include('../../partials/_navbar') %>
-        <h1>My reservations</h1>
-        <a href="/users/<%=user._id%>/reservations?status=confirmed">Upcoming</a>
-        <a href="/users/<%=user._id%>/reservations?status=completed">Completed</a>
-        <a href="/users/<%=user._id%>/reservations?status=cancelled">Cancelled</a>
-        <%if(reservations.length==0){%>
-            <p>No reservations</p>
-            <%}else{%>
-                <table>
-                    <thead>
-                        <tr>
 
-                            <th>Hotel name</th>
-                            <th>Room Type</th>
-                            <th>Check-in date</th>
-                            <th>Check-out date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <div class="reservations-page">
 
-                        <%reservations.forEach((reservation)=>{%>
-                            <tr>
-                                <td>
-                                    <%=reservation.hotel.name%>
-                                </td>
-                                <td>
-                                    <%=reservation.roomType%>
-                                </td>
-                                <td>
-                                    <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
-                                </td>
-                                <td>
-                                    <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
-                                </td>
-                                <td>
-                                    <%=reservation.status%>
-                                </td>
-                                <td><a href="/users/<%=user._id%>/reservations/<%=reservation._id%>">View
-                                        Details</a><br>
-                                    <%if(reservation.status==='confirmed' ){%>
-                                        <form
-                                            action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
-                                            method="POST">
-                                            <button type="submit" class="cancel">Cancel Reservation</button>
-                                        </form>
-                                        <%}%>
-                                </td>
+            <h1 class="reservations-title">
+                My Reservations
+            </h1>
 
-                            </tr>
-                            <% })%>
-                    </tbody>
-                </table>
-                <%}%>
 
-                    <%- include('../../partials/_footer') %>
+            <!-- STATUS TABS -->
+            <div class="reservation-tabs">
+
+                <a href="/users/<%= user._id %>/reservations?status=confirmed" class="reservation-tab">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Upcoming
+                </a>
+
+
+                <a href="/users/<%= user._id %>/reservations?status=completed" class="reservation-tab">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Completed
+                </a>
+
+
+                <a href="/users/<%= user._id %>/reservations?status=cancelled" class="reservation-tab">
+                    <i class="fa-solid fa-ban"></i>
+                    Cancelled
+                </a>
+
+            </div>
+
+
+            <% if (reservations.length===0) { %>
+
+                <div class="no-reservations">
+
+                    <i class="fa-solid fa-calendar-xmark"></i>
+
+                    <h2>
+                        No reservations
+                    </h2>
+
+                    <p>
+                        You don't have any reservations in this category.
+                    </p>
+
+                </div>
+
+
+                <% } else { %>
+
+
+                    <!-- RESERVATIONS TABLE -->
+                    <div class="reservations-table-container">
+
+                        <table class="reservations-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Hotel</th>
+
+                                    <th>Room Type</th>
+
+                                    <th>Check-in</th>
+
+                                    <th>Check-out</th>
+
+                                    <th>Status</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <% reservations.forEach((reservation)=> { %>
+
+                                    <tr>
+
+                                        <td class="hotel-name">
+
+                                            <%= reservation.hotel.name %>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <%= reservation.roomType %>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span class="reservation-status <%= reservation.status %>">
+
+                                                <%= reservation.status %>
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <td class="reservation-actions">
+
+                                            <a href="/users/<%= user._id %>/reservations/<%= reservation._id %>"
+                                                class="details-button">
+                                                View Details
+                                            </a>
+
+
+                                            <% if (reservation.status==='confirmed' ) { %>
+
+                                                <form
+                                                    action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
+                                                    method="POST">
+
+                                                    <button type="submit" class="cancel">
+                                                        Cancel
+                                                    </button>
+
+                                                </form>
+
+                                                <% } %>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <% }) %>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <% } %>
+
+        </div>
+        <%- include('../../partials/_footer') %>
 </body>
 
 </html>

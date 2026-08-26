@@ -37,79 +37,94 @@ async function getHotels() {
 `;
     hotels.forEach((hotel) => {
 
-
-
         hotelList.innerHTML += `
-                
         <div class="hotel-container">
 
-            <div class="pict-details">
+            <div class="hotel-main">
 
                 <div class="picture">
-                    <img src="${hotel.pictures[0].url}">
+                    <img src="${hotel.pictures[0].url}" alt="${hotel.name}">
                 </div>
 
-                <div class="details">
+                <div class="hotel-details">
 
-                    <h2>
-                        ${hotel.name}
-                    </h2>
+                    <h2>${hotel.name}</h2>
 
-                    <p>
+                    <p class="location">
+                        <i class="fa-solid fa-location-dot"></i>
                         ${hotel.location}
                     </p>
 
-                    <p>
+                    <p class="description">
                         ${hotel.description}
                     </p>
 
-                </div>
+                    <div class="hotel-buttons">
 
-                <div class="buttons">
+                        <a href="/hotels/${hotel._id}" class="view-button">
+                            View
+                        </a>
 
-                    <a href="/hotels/${hotel._id}">
-                        View
-                    </a>
+                        <a href="/hotels/${hotel._id}/reservations/new"
+                           class="reserve-button">
+                            Reserve Now
+                        </a>
 
-                    <a href="/hotels/${hotel._id}/reservations/new">
-                        Reserve now!!
-                    </a>
+                    </div>
 
                 </div>
 
             </div>
 
-            <div class="services">
 
-                ${hotel.services.map((service) => `
-                    <div class="service">
-                         <span>
-                                            <i class="${serviceIcons[service]}"></i>
-                                          ${service}
-                                        </span>
+            <div class="hotel-info">
+
+                <div class="services">
+
+                    <h3>Services</h3>
+
+                    <div class="service-list">
+
+                        ${hotel.services.map((service) => `
+                            <div class="service">
+                                <i class="${serviceIcons[service]}"></i>
+                                <span>${service}</span>
+                            </div>
+                        `).join('')}
+
                     </div>
-                `).join('')}
 
-            </div>
+                </div>
 
-            <div class="rooms">
 
-                ${hotel.rooms.map((room) => `
-                    <div class="room">
-                       <span>
-                                            <i class="${roomIcons[room.type]}"></i>
-                                          ${room.type}
-                                                ${room.pricePerNight} BHD
-                                        </span>
-                    </div>
-                `).join('')}
+                <div class="rooms">
+
+                    <h3>Rooms</h3>
+
+                    ${hotel.rooms.map((room) => `
+                        <div class="room">
+
+                            <div>
+                                <i class="${roomIcons[room.type]}"></i>
+                                <span>${room.type}</span>
+                          
+
+                            <strong>
+                                ${room.pricePerNight} BHD
+                                <small>/ night</small>
+                            </strong>
+  </div>
+                        </div>
+                    `).join('')}
+
+                </div>
 
             </div>
 
         </div>
     `;
     });
-};
+}
 getHotels();
 search.addEventListener('input', getHotels);
 filter.addEventListener('change', getHotels);

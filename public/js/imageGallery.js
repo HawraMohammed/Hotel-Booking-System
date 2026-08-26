@@ -1,5 +1,5 @@
 const mainImage = document.body.querySelector(".main-image img");
-const pictures = document.body.querySelectorAll(".picture img");
+const pictures = document.body.querySelectorAll(".thumbnail-picture img");
 let currentImage = 0;
 function showImage() {
     mainImage.src = pictures[currentImage].src;

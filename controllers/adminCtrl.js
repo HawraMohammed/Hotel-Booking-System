@@ -154,7 +154,8 @@ const updateHotel = async (req, res) => {
 }
 const showHotel = async (req, res) => {
     try {
-        const hotel = await Hotel.findById(req.params.hotelid);
+        const hotel = await Hotel.findById(req.params.hotelid).populate('comments.user');
+
         res.render('admin/show.ejs', { hotel, comments: hotel.comments });
     }
     catch (err) { console.log(err.message) }

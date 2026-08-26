@@ -4,52 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/about.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>about</title>
 </head>
 
 <body>
 
     <%- include('./partials/_navbar.ejs') %>
-        <h1>About</h1>
-        <section class="about">
-            <h1>About Us</h1>
 
-            <p>
-                Welcome to our hotel booking platform, designed to make finding and
-                booking the perfect hotel simple and convenient.
-            </p>
+        <div class="about-page">
 
-            <p>
-                Our platform allows users to explore hotels, view available room types,
-                prices, facilities, and locations, and make reservations with ease.
-                Users can also manage their reservations and keep track of their
-                upcoming and previous stays in one place.
-            </p>
+            <section class="about-hero">
+                <div class="about-hero-content">
+                    <h1>About Us</h1>
+                    <p>
+                        Making your hotel booking experience simple, comfortable, and stress-free.
+                    </p>
+                </div>
+            </section>
 
-            <h2>Our Goal</h2>
 
-            <p>
-                Our goal is to provide a smooth and user-friendly booking experience
-                by bringing everything you need to plan your stay together in one
-                platform.
-            </p>
+            <section class="about-content">
 
-            <h2>What We Offer</h2>
+                <div class="about-intro">
+                    <h2>Find Your Perfect Stay</h2>
 
-            <ul>
-                <li>Explore a variety of hotels and their available rooms.</li>
-                <li>View room prices, capacities, and hotel facilities.</li>
-                <li>Check hotel locations and nearby attractions.</li>
-                <li>Make and manage hotel reservations easily.</li>
-                <li>View upcoming, completed, and cancelled reservations.</li>
-                <li>Discover the services and amenities available at each hotel.</li>
-            </ul>
+                    <p>
+                        Our hotel booking platform helps you discover hotels,
+                        explore their rooms and amenities, and make reservations
+                        easily in one place.
+                    </p>
 
-            <p>
-                We are committed to making hotel booking easier, clearer, and more
-                convenient for every traveler.
-            </p>
-        </section>
+                    <p>
+                        Whether you're planning a short trip or a longer stay,
+                        we make it easier to find a place that suits your needs
+                        and preferences.
+                    </p>
+                </div>
+
+
+                <div class="about-features">
+
+                    <div class="about-card">
+                        <i class="fa-solid fa-hotel"></i>
+                        <h3>Discover Hotels</h3>
+                        <p>
+                            Browse hotels and explore their locations, rooms,
+                            prices, and available amenities.
+                        </p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <h3>Easy Reservations</h3>
+                        <p>
+                            Choose your room, select your dates, and make your
+                            reservation with ease.
+                        </p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fa-solid fa-star"></i>
+                        <h3>Guest Reviews</h3>
+                        <p>
+                            Read reviews from other guests and share your own
+                            experience after your stay.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <section class="about-mission">
+
+                    <div>
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <h2>Our Goal</h2>
+                        <p>
+                            We aim to make finding and booking accommodation
+                            convenient and enjoyable, giving travelers the
+                            information they need to make the right choice.
+                        </p>
+                    </div>
+
+                </section>
+
+            </section>
+
+        </div>
 
         <%- include('./partials/_footer.ejs') %>
 </body>

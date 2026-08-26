@@ -4,189 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/reservation.css" />
+    <link rel="stylesheet" href="/stylesheets/admin.css" />
+    <link rel="stylesheet" href="/stylesheets/hotel.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>Edit hotel</title>
 </head>
 
 <body>
     <%- include('../partials/_navbar') %>
-        <form action="/admin/hotels/<%=hotel._id%>?_method=put" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Hotel detials</legend>
-                <label for="name">Hotel name</label>
-                <input type="text" name="name" id="name" value="<%=hotel.name%>">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" value="<%=hotel.description %>">
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location" value="<%=hotel.location%>">
-                <div id="map"></div>
+        <div class="admin-form-page">
+            <form action="/admin/hotels/<%=hotel._id%>?_method=put" method="post" enctype="multipart/form-data"
+                class="admin-hotel-form">
+                <fieldset>
+                    <legend>Hotel detials</legend>
+                    <label for="name">Hotel name</label>
+                    <input type="text" name="name" id="name" value="<%=hotel.name%>">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" value="<%=hotel.description %>">
+                    <label for="location">Location</label>
+                    <input type="text" name="location" id="location" value="<%=hotel.location%>">
+                    <div id="map"></div>
 
-                <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
-                <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
-                <label for="picture">Add pictures</label>
-                <input type="file" name="pictures" accept="image/*" multiple>
-                <%if(hotel.pictures.length>0){%>
-                    <% hotel.pictures.forEach(picture=> { %>
+                    <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
+                    <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
+                    <label for="picture">Add pictures</label>
+                    <input type="file" name="pictures" accept="image/*" multiple>
+                    <% if (hotel.pictures.length> 0) { %>
 
-                        <div>
-                            <img src="<%= picture.url %>" width="150">
+                        <div class="existing-pictures">
 
-                            <label>
-                                <input type="checkbox" name="deletePictures" value="<%= picture.public_id %>">
-                                Delete this picture
-                            </label>
+                            <% hotel.pictures.forEach(picture=> { %>
+
+                                <div class="existing-picture">
+
+                                    <img src="<%= picture.url %>" width="150">
+
+                                    <label class="delete-picture">
+                                        <input type="checkbox" name="deletePictures" value="<%= picture.public_id %>">
+                                        Delete this picture
+                                    </label>
+
+                                </div>
+
+                                <% }) %>
+
                         </div>
 
-                        <% })} %>
-            </fieldset>
-            <fieldset>
-                <legend>Services</legend>
-                <label for="Wifi">
-                    <input type="checkbox" name="services" id="Wifi" value="Wifi" <%=hotel.services.includes("Wifi")
-                        ? "checked" : "" %>>
-                    Wifi
-                </label>
+                        <% } %>
+                </fieldset>
+                <fieldset class="services-fieldset">
+                    <legend>Services</legend>
+                    <label for="Wifi">
+                        <input type="checkbox" name="services" id="Wifi" value="Wifi" <%=hotel.services.includes("Wifi")
+                            ? "checked" : "" %>>
+                        Wifi
+                    </label>
 
-                <label for="Swimming-Pool">
-                    <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool"
-                        <%=hotel.services.includes("Swimming Pool") ? "checked" : "" %>>
-                    Swimming Pool
-                </label>
+                    <label for="Swimming-Pool">
+                        <input type="checkbox" name="services" id="Swimming-Pool" value="Swimming Pool"
+                            <%=hotel.services.includes("Swimming Pool") ? "checked" : "" %>>
+                        Swimming Pool
+                    </label>
 
-                <label for="Room-Service">
-                    <input type="checkbox" name="services" id="Room-Service" value="Room Service"
-                        <%=hotel.services.includes("Room Service") ? "checked" : "" %>>
+                    <label for="Room-Service">
+                        <input type="checkbox" name="services" id="Room-Service" value="Room Service"
+                            <%=hotel.services.includes("Room Service") ? "checked" : "" %>>
 
-                    Room Service
-                </label>
+                        Room Service
+                    </label>
 
-                <label for="View">
-                    <input type="checkbox" name="services" id="View" value="View" <%=hotel.services.includes("View")
-                        ? "checked" : "" %>>
+                    <label for="View">
+                        <input type="checkbox" name="services" id="View" value="View" <%=hotel.services.includes("View")
+                            ? "checked" : "" %>>
 
-                    View
-                </label>
+                        View
+                    </label>
 
-                <label for="Gym">
-                    <input type="checkbox" name="services" id="Gym" value="Gym" <%=hotel.services.includes("Gym")
-                        ? "checked" : "" %>>
+                    <label for="Gym">
+                        <input type="checkbox" name="services" id="Gym" value="Gym" <%=hotel.services.includes("Gym")
+                            ? "checked" : "" %>>
 
-                    Gym
-                </label>
+                        Gym
+                    </label>
 
-                <label for="Spa">
-                    <input type="checkbox" name="services" id="Spa" value="Spa" <%=hotel.services.includes("Spa")
-                        ? "checked" : "" %>>
+                    <label for="Spa">
+                        <input type="checkbox" name="services" id="Spa" value="Spa" <%=hotel.services.includes("Spa")
+                            ? "checked" : "" %>>
 
-                    Spa
-                </label>
+                        Spa
+                    </label>
 
-                <label for="Parking">
-                    <input type="checkbox" name="services" id="Parking" value="Parking"
-                        <%=hotel.services.includes("Parking") ? "checked" : "" %>>
+                    <label for="Parking">
+                        <input type="checkbox" name="services" id="Parking" value="Parking"
+                            <%=hotel.services.includes("Parking") ? "checked" : "" %>>
 
-                    Parking
-                </label>
+                        Parking
+                    </label>
 
-                <label for="Non-smoking-rooms">
-                    <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms"
-                        <%=hotel.services.includes("Non-smoking rooms") ? "checked" : "" %>>
+                    <label for="Non-smoking-rooms">
+                        <input type="checkbox" name="services" id="Non-smoking-rooms" value="Non-smoking rooms"
+                            <%=hotel.services.includes("Non-smoking rooms") ? "checked" : "" %>>
 
-                    Non-smoking rooms
-                </label>
-            </fieldset>
-            <fieldset>
-                <legend>Rooms</legend>
+                        Non-smoking rooms
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Rooms</legend>
 
-                <div id="rooms-container">
-                    <% hotel.rooms.forEach((room)=>{%>
-                        <div class="room">
-                            <label>Room Type</label>
-                            <select name="roomType">
-                                <option value="Single" <%=room.type==='Single' ? 'selected' :''%>>Single</option>
-                                <option value="Double" <%=room.type==='Double' ? 'selected' :''%>>Double</option>
-                                <option value="Suite" <%=room.type==='Suite' ? 'selected' :''%>>Suite</option>
-                            </select>
+                    <div id="rooms-container">
+                        <% hotel.rooms.forEach((room,index)=>{%>
+                            <div class="room">
+                                <label>Room Type</label>
+                                <select name="roomType">
+                                    <option value="Single" <%=room.type==='Single' ? 'selected' :''%>>Single</option>
+                                    <option value="Double" <%=room.type==='Double' ? 'selected' :''%>>Double</option>
+                                    <option value="Suite" <%=room.type==='Suite' ? 'selected' :''%>>Suite</option>
+                                </select>
 
-                            <label>Price Per Night</label>
-                            <input type="number" name="pricePerNight" value="<%=room.pricePerNight%>" required>
+                                <label>Price Per Night</label>
+                                <input type="number" name="pricePerNight" value="<%=room.pricePerNight%>" required>
 
-                            <label>Capacity</label>
-                            <input type="number" name="capacity" value="<%=room.capacity%>" required>
+                                <label>Capacity</label>
+                                <input type="number" name="capacity" value="<%=room.capacity%>" required>
 
-                            <label>Quantity</label>
-                            <input type="number" name="quantity" value="<%=room.quantity%>" required>
-                        </div>
-                        <%})%>
-                </div>
+                                <label>Quantity</label>
+                                <input type="number" name="quantity" value="<%=room.quantity%>" required>
+                                <%if(index !==0){%>
+                                    <button type="button" class="delete-button">
+                                        Remove
+                                    </button>
+                                    <%}%>
+                            </div>
+                            <%})%>
+                    </div>
 
 
-                <button type="button" id="add-room">Add Room Type</button>
-            </fieldset>
-            <button type="submit">Save changes</button>
-        </form>
+                    <button type="button" id="add-room">Add Room Type</button>
+                </fieldset>
+                <button type="submit">Save changes</button>
+            </form>
+        </div>
         <%- include('../partials/_footer') %>
             <script>
-                const roomsContainer = document.querySelector('#rooms-container');
-                const addRoomButton = document.querySelector('#add-room');
-
-                addRoomButton.addEventListener('click', () => {
-                    const room = document.createElement('div');
-
-                    room.classList.add('room');
-
-                    room.innerHTML = `
-            <label>Room Type</label>
-            <select name="roomType">
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Suite">Suite</option>
-            </select>
-
-            <label>Price Per Night</label>
-            <input type="number" name="pricePerNight" required>
-
-            <label>Capacity</label>
-            <input type="number" name="capacity" required>
-
-            <label>Quantity</label>
-            <input type="number" name="quantity" required>
-
-            <button type="button" class="remove-room">
-                Remove
-            </button>
-        `;
-
-                    roomsContainer.appendChild(room);
-                });
-
-                roomsContainer.addEventListener('click', (e) => {
-
-                    if (e.target.classList.contains('remove-room')) {
-                        e.target.parentElement.remove();
-                    }
-
-                });
-                const pictureInput = document.querySelector('input[name="pictures"]');
-
-                let selectedFiles = [];
-
-                pictureInput.addEventListener("change", function () {
-
-                    for (const file of this.files) {
-                        selectedFiles.push(file);
-                    }
-
-
-                    const dataTransfer = new DataTransfer();
-
-                    for (const file of selectedFiles) {
-                        dataTransfer.items.add(file);
-                    }
-
-                    pictureInput.files = dataTransfer.files;
-
-                });
-
                 let map;
                 let marker;
 
@@ -231,13 +194,8 @@
             <script
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
                 async defer></script>
-            <style>
-                #map {
-                    width: 50%;
-                    height: 400px;
-                    border: 2px solid red;
-                }
-            </style>
+            <script src="/js/roomTypeCtrl.js"></script>
+            <script src="/js/imageUploadCtrl.js"></script>
 
 </body>
 

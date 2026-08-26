@@ -22,7 +22,7 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         enum: ['confirmed', 'cancelled', 'completed'],
         required: true,
-        default: 'confiremed'
+        default: 'confirmed'
     }
 });
 

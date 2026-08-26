@@ -4,43 +4,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/reservation.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
     <title>reservation details</title>
 </head>
 
 <body>
     <%- include('../../partials/_navbar') %>
-        <h1>Reservation at <%=reservation.hotel.name%>,<%=reservation.hotel.location%>
-        </h1>
-        <ul>
-            <li>
-                Room type: <%=reservation.roomType%>
-            </li>
-            <li>
-                Number of guests: <%=reservation.numOfGuests%>
-            </li>
-            <li>
-                check-in date: <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
-            </li>
-            <li>
-                check-out: <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
-            </li>
-            <li>
-                Total price: <%=reservation.price%>
-            </li>
-            <li>
-                Payment Method:<%=reservation.paymentMethod%>
-            </li>
-            <li>
-                Reservation status: <%=reservation.status%>
-            </li>
-        </ul>
-        <%if(reservation.status==='confirmed' ){%>
-            <form action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT" method="POST">
-                <button type="submit" class="cancel">Cancel Reservation</button>
-            </form>
-            <%}%>
 
-                <%- include('../../partials/_footer') %>
+        <div class="reservation-page">
+
+            <div class="reservation-card">
+
+                <div class="reservation-header">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <h1>
+                        Reservation at <%= reservation.hotel.name %>
+                    </h1>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= reservation.hotel.location %>
+                    </p>
+
+                </div>
+
+
+                <div class="reservation-details">
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-bed"></i>
+
+                        <div>
+                            <span>Room Type</span>
+                            <strong>
+                                <%= reservation.roomType %>
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-users"></i>
+
+                        <div>
+                            <span>Number of Guests</span>
+                            <strong>
+                                <%= reservation.numOfGuests %>
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        <div>
+                            <span>Check-in</span>
+                            <strong>
+                                <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-calendar-xmark"></i>
+
+                        <div>
+                            <span>Check-out</span>
+                            <strong>
+                                <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-money-bill"></i>
+
+                        <div>
+                            <span>Total Price</span>
+                            <strong>
+                                <%= reservation.price %> BHD
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="reservation-detail">
+                        <i class="fa-solid fa-credit-card"></i>
+
+                        <div>
+                            <span>Payment Method</span>
+                            <strong>
+                                <%= reservation.paymentMethod %>
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="reservation-status">
+
+                    <span>Status</span>
+
+                    <strong class="<%= reservation.status %>">
+                        <%= reservation.status %>
+                    </strong>
+
+                </div>
+
+
+                <% if (reservation.status==='confirmed' ) { %>
+
+                    <form action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT" method="POST">
+
+                        <button type="submit" class="cancel">
+                            <i class="fa-solid fa-xmark"></i>
+                            Cancel Reservation
+                        </button>
+
+                    </form>
+
+                    <% } %>
+
+            </div>
+
+        </div>
+        <%- include('../../partials/_footer') %>
 </body>
 
 </html>

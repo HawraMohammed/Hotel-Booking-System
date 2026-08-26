@@ -6,6 +6,10 @@ roomType.addEventListener('change', () => {
     const selectedOption = roomType.options[roomType.selectedIndex];
     price.value = selectedOption.dataset.price;
     guests.value = selectedOption.dataset.guests;
+    if (checkIn.value && checkOut.value) {
+        const numOfNights = (new Date(checkOut.value) - new Date(checkIn.value)) / (1000 * 60 * 60 * 24);
+        total.value = price.value * numOfNights + " BHD";
+    }
 })
 const checkIn = document.querySelector('[name="checkIn"]');
 const checkOut = document.querySelector('[name="checkOut"]');

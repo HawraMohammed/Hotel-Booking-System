@@ -23,7 +23,7 @@ addRoomButton.addEventListener('click', () => {
             <label>Quantity</label>
             <input type="number" name="quantity" required>
 
-            <button type="button" class="remove-room">
+            <button type="button" class="delete-button">
                 Remove
             </button>
         `;
@@ -33,7 +33,7 @@ addRoomButton.addEventListener('click', () => {
 
 roomsContainer.addEventListener('click', (e) => {
 
-    if (e.target.classList.contains('remove-room')) {
+    if (e.target.classList.contains('delete-button')) {
         e.target.parentElement.remove();
     }
 

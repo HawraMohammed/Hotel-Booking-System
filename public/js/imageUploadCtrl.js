@@ -1,4 +1,5 @@
 let selectedFiles = [];
+const pictureInput = document.querySelector('input[name="pictures"]');
 
 pictureInput.addEventListener("change", function () {
 

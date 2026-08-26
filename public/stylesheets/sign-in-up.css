@@ -1,0 +1,187 @@
+/* =========================
+   AUTH PAGE
+========================= */
+
+.auth-page {
+    min-height: 70vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px 20px;
+
+    background-color: #F4FAFA;
+}
+
+
+/* =========================
+   AUTH CARD
+========================= */
+
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.auth-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.auth-header i {
+    font-size: 40px;
+
+    color: #007C91;
+
+    margin-bottom: 15px;
+}
+
+.auth-header h1 {
+    margin: 0;
+
+    color: #164E5A;
+
+    font-size: 30px;
+}
+
+.auth-header p {
+    color: #526B70;
+
+    margin-top: 10px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.auth-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.form-group label {
+    color: #164E5A;
+
+    font-weight: 600;
+
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 12px 14px;
+
+    border: 1px solid #B8DDE2;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #007C91;
+}
+
+.form-group input::placeholder {
+    color: #9AAEB2;
+}
+
+
+/* =========================
+   SIGN UP BUTTON
+========================= */
+
+.auth-submit {
+    margin-top: 8px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background-color: #007C91;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.auth-submit:hover {
+    background-color: #005A66;
+}
+
+
+/* =========================
+   AUTH FOOTER
+========================= */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    border-top: 1px solid #E6F4F6;
+
+    padding-top: 20px;
+}
+
+.auth-footer p {
+    color: #526B70;
+
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #007C91;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    color: #005A66;
+
+    text-decoration: underline;
+}

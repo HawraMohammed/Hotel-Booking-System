@@ -86,7 +86,7 @@ const handleSearch = async (req, res) => {
 }
 const showHotel = async (req, res) => {
     try {
-        const hotel = await Hotel.findById(req.params.hotelid);
+        const hotel = await Hotel.findById(req.params.hotelid).populate("comments.user");
         res.render('user/hotels/show.ejs', { hotel, comments: hotel.comments });
     }
     catch (err) { console.log(err.message) }
@@ -94,7 +94,7 @@ const showHotel = async (req, res) => {
 const newReservation = async (req, res) => {
     try {
         const hotel = await Hotel.findById(req.params.hotelid);
-        res.render('user/reservations/new.ejs', { hotel });
+        res.render('user/reservations/new.ejs', { hotel, error: req.query.error });
     }
     catch (err) { console.log(err.message) }
 }
@@ -105,7 +105,9 @@ const createReservation = async (req, res) => {
             checkIn: { $lt: new Date(req.body.checkOut) },
             checkOut: { $gt: new Date(req.body.checkIn) }
         });
-        if (findExistingRes) return res.send('There is an exisiting reservation within this period');
+        if (findExistingRes) return res.redirect(
+            `/hotels/${req.params.hotelid}/reservations/new?error=There exist a reservation within this period `
+        );
 
         const hotel = await Hotel.findById(req.params.hotelid);
         const roomType = hotel.rooms.find(
@@ -119,7 +121,9 @@ const createReservation = async (req, res) => {
         });
         const availableRooms = roomType.quantity - reservations.length;
         if (availableRooms <= 0)
-            return res.send("No available room");
+            return res.redirect(
+                `/hotels/${req.params.hotelid}/reservations/new?error=No available rooms within this period`
+            );
 
         const numOfNights =
             (new Date(req.body.checkOut) - new Date(req.body.checkIn))
@@ -143,7 +147,7 @@ const createReservation = async (req, res) => {
 }
 const createComment = async (req, res) => {
     try {
-        const hotel = await Hotel.findById(req.params.hotelid);
+        const hotel = await Hotel.findById(req.params.hotelid);;
         hotel.comments.push({
             title: req.body.title,
             description: req.body.description,

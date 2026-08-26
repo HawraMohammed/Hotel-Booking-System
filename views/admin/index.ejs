@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotels</title>
+    <link rel="stylesheet" href="/stylesheets/admin.css" />
+    <link rel="stylesheet" href="/stylesheets/hotel.css" />
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/partials.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -16,63 +19,136 @@
             : "fa-solid fa-dumbbell" , "Spa" : "fa-solid fa-spa" , "Parking" : "fa-solid fa-square-parking"
             , "Non-smoking rooms" : "fa-solid fa-ban-smoking" }; const roomIcons={ "Single" : "fa-solid fa-bed"
             , "Double" : "fa-solid fa-bed-pulse" , "Suite" : "fa-solid fa-hotel" }; %>
-            <%if (hotels){%>
-                <h1>All hotels</h1>
-                <% hotels.forEach((hotel)=>{%>
-                    <div class="hotel-container">
-                        <div class="pict-details">
-                            <%if(hotel.pictures.length>0){%>
-                                <div class="picture"><img src="<%=hotel.pictures[0].url%>"></div>
-                                <%}%>
-                                    <div class="details">
-                                        <h2>
-                                            <%=hotel.name%>
-                                        </h2>
-                                        <p>
-                                            <%=hotel.location%>
-                                        </p>
-                                        <p>
-                                            <%=hotel.description%>
-                                        </p>
+            <% if (hotels) { %>
+
+                <h1 class="page-title">All Hotels</h1>
+                <div class="admin-actions">
+                    <a href="/admin/hotels/new" class="add-hotel-button">
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Hotel
+                    </a>
+                </div>
+                <div class="hotels-list">
+
+                    <% hotels.forEach((hotel)=> { %>
+
+                        <div class="hotel-container">
+                            <div class="admin-hotel-actions">
+
+                                <a href="/admin/hotels/<%= hotel._id %>/edit" class="admin-action edit-action"
+                                    title="Edit hotel">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+
+                                <form action="/admin/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
+
+                                    <button type="submit" class="admin-action delete-action" title="Delete hotel">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                            <div class="hotel-main">
+
+                                <% if (hotel.pictures.length> 0) { %>
+                                    <div class="picture">
+                                        <img src="<%= hotel.pictures[0].url %>" alt="<%= hotel.name %>">
                                     </div>
-                                    <div class="buttons">
-                                        <a href="/admin/hotels/<%=hotel._id%>">View</a>
-                                        <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                                        <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                                            <button type="submit">Delete</button>
-                                        </form>
+                                    <% } %>
 
+                                        <div class="hotel-details">
+
+                                            <h2>
+                                                <%= hotel.name %>
+                                            </h2>
+
+                                            <p class="location">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                <%= hotel.location %>
+                                            </p>
+
+                                            <p class="description">
+                                                <%= hotel.description %>
+                                            </p>
+
+                                            <div class="hotel-buttons">
+                                                <a href="/admin/hotels/<%= hotel._id %>" class="view-button">
+                                                    View
+                                                </a>
+
+
+                                            </div>
+
+                                        </div>
+
+                            </div>
+
+
+                            <div class="hotel-info">
+
+                                <div class="services">
+
+                                    <h3>Services</h3>
+
+                                    <div class="service-list">
+                                        <% hotel.services.forEach((service)=> { %>
+                                            <div class="service">
+                                                <i class="<%= serviceIcons[service] %>"></i>
+                                                <span>
+                                                    <%= service %>
+                                                </span>
+                                            </div>
+                                            <% }) %>
                                     </div>
-                        </div>
-                        <div class="services">
-                            <%hotel.services.forEach((service)=>{%>
-                                <div class="service">
-                                    <span>
-                                        <i class="<%= serviceIcons[service] %>"></i>
-                                        <%= service %>
-                                    </span>
-                                </div>
-                                <%})%>
-                        </div>
-                        <div class="rooms">
-                            <%hotel.rooms.forEach((room)=>{%>
-                                <div class="room">
-                                    <span>
-                                        <i class="<%= roomIcons[room.type] %>"></i>
-                                        <%=room.type%>
-                                            <%=room.pricePerNight%> BHD
-                                    </span>
+
                                 </div>
 
-                                <%})%>
+
+                                <div class="rooms">
+
+                                    <h3>Rooms</h3>
+
+                                    <% hotel.rooms.forEach((room)=> { %>
+
+                                        <div class="room">
+                                            <div>
+                                                <i class="<%= roomIcons[room.type] %>"></i>
+                                                <span>
+                                                    <%= room.type %>
+                                                </span>
+                                                <strong>
+                                                    <%= room.pricePerNight %> BHD
+                                                </strong>
+                                                <small class="room">/night</small>
+                                            </div>
+
+
+                                        </div>
+
+                                        <% }) %>
+
+                                </div>
+
+                            </div>
+
                         </div>
 
+                        <% }) %>
+
+                </div>
+
+                <% } else { %>
+
+                    <div class="no-hotels">
+                        <i class="fa-solid fa-hotel"></i>
+                        <h2>No hotels found</h2>
+                        <p>Try changing your search or filter.</p>
                     </div>
-                    <% }) } else {%>
-                        <p>No hotels are added yet</p>
-                        <%}%>
-                            <a href="/admin/hotels/new">Add new hotel</a>
-                            <%- include('../partials/_footer') %>
+
+                    <% } %>
+                        <%- include('../partials/_footer') %>
 </body>
 
 </html>

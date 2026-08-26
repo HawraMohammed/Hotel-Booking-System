@@ -1,0 +1,392 @@
+.admin-hotel-form fieldset {
+    border: 1px solid #D7EEF1;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.admin-hotel-form legend {
+    color: #164E5A;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+
+/* LABELS */
+
+.admin-hotel-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    color: #35616A;
+    font-weight: 600;
+}
+
+
+/* INPUTS */
+
+.admin-hotel-form input[type="text"],
+.admin-hotel-form input[type="number"],
+.admin-hotel-form input[type="file"],
+.admin-hotel-form select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #B8DDE2;
+    border-radius: 8px;
+
+    background-color: white;
+    color: #164E5A;
+
+    outline: none;
+}
+
+
+/* INPUT FOCUS */
+
+.admin-hotel-form input[type="text"]:focus,
+.admin-hotel-form input[type="number"]:focus,
+.admin-hotel-form select:focus {
+    border-color: #007C91;
+    box-shadow: 0 0 0 2px rgba(0, 124, 145, 0.1);
+}
+
+
+/* MAP */
+
+.admin-hotel-form #map {
+    width: 100%;
+    height: 300px;
+    margin-top: 15px;
+
+    border: 1px solid #B8DDE2;
+    border-radius: 12px;
+}
+
+
+/* SERVICES */
+
+.services-fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.services-fieldset legend {
+    width: 100%;
+}
+
+.services-fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin: 0;
+
+    padding: 9px 14px;
+
+    background-color: #F4FAFA;
+    border: 1px solid #D7EEF1;
+    border-radius: 20px;
+
+    color: #35616A;
+
+    cursor: pointer;
+}
+
+.services-fieldset label:hover {
+    background-color: #E6F4F6;
+}
+
+.services-fieldset input[type="checkbox"] {
+    accent-color: #007C91;
+}
+
+
+/* ROOMS */
+
+#rooms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-hotel-form .room {
+    padding: 20px;
+
+    background-color: #F4FAFA;
+    border: 1px solid #D7EEF1;
+    border-radius: 12px;
+}
+
+
+/* ADD ROOM BUTTON */
+
+#add-room {
+    margin-top: 20px;
+
+    padding: 10px 18px;
+
+    border: 1px solid #007C91;
+    border-radius: 25px;
+
+    background-color: white;
+    color: #007C91;
+
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#add-room:hover {
+    background-color: #D7EEF1;
+}
+
+
+/* ADD HOTEL BUTTON */
+
+.admin-hotel-form>button[type="submit"] {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+    border-radius: 25px;
+
+    background-color: #007C91;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.admin-hotel-form>button[type="submit"]:hover {
+    background-color: #005A66;
+}
+
+/* EXISTING HOTEL PICTURES */
+
+.existing-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin-top: 15px;
+    padding: 15px;
+
+    background-color: #F4FAFA;
+    border: 1px solid #D7EEF1;
+    border-radius: 12px;
+}
+
+.existing-picture {
+    width: 150px;
+
+    background-color: white;
+
+    border: 1px solid #D7EEF1;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.existing-picture img {
+    display: block;
+
+    width: 150px;
+    height: 110px;
+
+    object-fit: cover;
+}
+
+.delete-picture {
+    display: flex !important;
+    align-items: center;
+
+    gap: 6px;
+
+    margin: 0 !important;
+    padding: 9px;
+
+    color: #526B70 !important;
+    font-size: 13px;
+    font-weight: normal !important;
+
+    cursor: pointer;
+}
+
+.delete-picture input {
+    accent-color: #007C91;
+    cursor: pointer;
+}
+
+/* =========================
+   ADMIN HOTEL ACTIONS
+========================= */
+
+.hotel-container {
+    position: relative;
+}
+
+
+/* Action container */
+
+.admin-hotel-actions {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    display: flex;
+    gap: 8px;
+
+    z-index: 10;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.2s ease;
+}
+
+
+/* Show actions when hovering over hotel */
+
+.hotel-container:hover .admin-hotel-actions {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Buttons */
+
+.admin-action {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Edit */
+
+.edit-action {
+    background-color: white;
+    color: #007C91;
+}
+
+.edit-action:hover {
+    background-color: #007C91;
+    color: white;
+}
+
+
+/* Delete */
+
+.delete-action {
+    background-color: white;
+    color: #C94A4A;
+}
+
+.delete-action:hover {
+    background-color: #C94A4A;
+    color: white;
+}
+
+
+/* Remove default form spacing */
+
+.admin-hotel-actions form {
+    margin: 0;
+    padding: 0;
+}
+
+.add-hotel-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 20px;
+
+    background-color: #007C91;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 25px;
+
+    font-weight: 600;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-hotel-button:hover {
+    background-color: #005A66;
+    transform: translateY(-2px);
+}
+
+.add-hotel-button i {
+    font-size: 14px;
+}
+
+/* ADMIN HOTEL FORM */
+
+.admin-form-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 25px 50px;
+}
+
+.admin-hotel-form {
+    background-color: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.admin-actions {
+    max-width: 1100px;
+    margin: 0 auto 25px;
+    padding: 0 25px;
+
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+.add-hotel-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 20px;
+    background-color: #007C91;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.add-hotel-button:hover {
+    background-color: #005A66;
+}
