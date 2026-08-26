@@ -6,73 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotels</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
     <%- include('../../partials/_navbar') %>
-        <div><input type="search" name="search" id="search">
-            <select name="filter" id="filter">
-                <option value="priceAsc">prices from low to high</option>
-                <option value="priceDesc">prices from high to low</option>
-                <option value="location">location</option>
-                <option value="ratings">ratings</option>
-            </select>
-        </div>
-        <%if (hotels){%>
-            <h1>All hotels</h1>
-            <div class="hotels-list">
-                <% hotels.forEach((hotel)=>{%>
-                    <div class="hotel-container">
-                        <div class="pict-details">
-                            <%if(hotel.pictures.length>0){%>
-                                <div class="picture"><img src="<%=hotel.pictures[0].url%>"></div>
-                                <%}%>
-                                    <div class="details">
-                                        <h2>
-                                            <%=hotel.name%>
-                                        </h2>
-                                        <p>
-                                            <%=hotel.location%>
-                                        </p>
-                                        <p>
-                                            <%=hotel.description%>
-                                        </p>
-                                    </div>
-                                    <div class="buttons">
-                                        <a href="/hotels/<%=hotel._id%>">View</a>
-
-                                        <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
-                                    </div>
-                        </div>
-                        <div class="services">
-                            <%hotel.services.forEach((service)=>{%>
-                                <div class="service">
-                                    <p>
-                                        <%=service%>
-                                    </p>
-                                </div>
-                                <%})%>
-                        </div>
-                        <div class="rooms">
-                            <%hotel.rooms.forEach((room)=>{%>
-                                <div class="room">
-                                    <p>
-                                        <%=room.type%>
-                                            <%=room.pricePerNight%>
-                                    </p>
-                                </div>
-                                <%})%>
-                        </div>
-
-                    </div>
-                    <% })%>
+        <% const serviceIcons={ "Wifi" : "fa-solid fa-wifi" , "Swimming Pool" : "fa-solid fa-person-swimming"
+            , "Room Service" : "fa-solid fa-bell-concierge" , "View" : "fa-solid fa-mountain-sun" , "Gym"
+            : "fa-solid fa-dumbbell" , "Spa" : "fa-solid fa-spa" , "Parking" : "fa-solid fa-square-parking"
+            , "Non-smoking rooms" : "fa-solid fa-ban-smoking" }; const roomIcons={ "Single" : "fa-solid fa-bed"
+            , "Double" : "fa-solid fa-bed-pulse" , "Suite" : "fa-solid fa-hotel" }; %>
+            <div><input type="search" name="search" id="search">
+                <select name="filter" id="filter">
+                    <option value="priceAsc">prices from low to high</option>
+                    <option value="priceDesc">prices from high to low</option>
+                    <option value="location">location</option>
+                    <option value="ratings">ratings</option>
+                </select>
             </div>
+            <%if (hotels){%>
+                <h1>All hotels</h1>
+                <div class="hotels-list">
+                    <% hotels.forEach((hotel)=>{%>
+                        <div class="hotel-container">
+                            <div class="pict-details">
+                                <%if(hotel.pictures.length>0){%>
+                                    <div class="picture"><img src="<%=hotel.pictures[0].url%>"></div>
+                                    <%}%>
+                                        <div class="details">
+                                            <h2>
+                                                <%=hotel.name%>
+                                            </h2>
+                                            <p>
+                                                <%=hotel.location%>
+                                            </p>
+                                            <p>
+                                                <%=hotel.description%>
+                                            </p>
+                                        </div>
+                                        <div class="buttons">
+                                            <a href="/hotels/<%=hotel._id%>">View</a>
 
-            <% }else {%>
-                <p>No available hotels</p>
-                <%}%>
-                    <%- include('../../partials/_footer') %>
-                        <script src="/js/searchBar.js"></script>
+                                            <a href="/hotels/<%=hotel._id%>/reservations/new">Reserve now!!</a>
+                                        </div>
+                            </div>
+                            <div class="services">
+                                <%hotel.services.forEach((service)=>{%>
+                                    <div class="service">
+                                        <span>
+                                            <i class="<%= serviceIcons[service] %>"></i>
+                                            <%= service %>
+                                        </span>
+                                    </div>
+                                    <%})%>
+                            </div>
+                            <div class="rooms">
+                                <%hotel.rooms.forEach((room)=>{%>
+                                    <div class="room">
+                                        <span>
+                                            <i class="<%= roomIcons[room.type] %>"></i>
+                                            <%=room.type%>
+                                                <%=room.pricePerNight%> BHD
+                                        </span>
+                                    </div>
+                                    <%})%>
+                            </div>
+
+                        </div>
+                        <% })%>
+                </div>
+
+                <% }else {%>
+                    <p>No hotels found</p>
+                    <%}%>
+                        <%- include('../../partials/_footer') %>
+                            <script src="/js/searchBar.js"></script>
 </body>
 
 </html>

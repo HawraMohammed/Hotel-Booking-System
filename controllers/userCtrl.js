@@ -4,17 +4,15 @@ const Reservation = require("../models/reservation");
 const session = require("express-session");
 const index = async (req, res) => {
     try {
-        const reservations = await Reservation.find({ user: req.session.user._id }).populate('hotel').sort({ checkIn: -1 });;
+        const Allreservations = await Reservation.find({ user: req.session.user._id });
 
-        for (const reservation of reservations) {
-            console.log("NOW:", new Date());
-            console.log("CHECKOUT:", reservation.checkOut);
-            console.log("STATUS:", reservation.status);
+        for (const reservation of Allreservations) {
             if (new Date() >= reservation.checkOut && reservation.status === 'confirmed') {
                 reservation.status = 'completed';
                 await reservation.save();
             }
         }
+        const reservations = await Reservation.find({ user: req.session.user._id, status: req.query.status }).populate('hotel').sort({ checkIn: -1 });
         res.render('user/reservations/index.ejs', { reservations });
     }
     catch (err) { console.log(err.message) }

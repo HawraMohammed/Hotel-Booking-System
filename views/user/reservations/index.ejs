@@ -10,46 +10,57 @@
 <body>
     <%- include('../../partials/_navbar') %>
         <h1>My reservations</h1>
+        <a href="/users/<%=user._id%>/reservations?status=confirmed">Upcoming</a>
+        <a href="/users/<%=user._id%>/reservations?status=completed">Completed</a>
+        <a href="/users/<%=user._id%>/reservations?status=cancelled">Cancelled</a>
         <%if(reservations.length==0){%>
             <p>No reservations</p>
             <%}else{%>
                 <table>
-                    <tr>
-                        <td>Hotel name</td>
-                        <td>Room Type</td>
-                        <td>Check-in date</td>
-                        <td>Check-out date</td>
-                        <td>Status</td>
-                    </tr>
-                    <%reservations.forEach((reservation)=>{%>
+                    <thead>
                         <tr>
-                            <td>
-                                <%=reservation.hotel.name%>
-                            </td>
-                            <td>
-                                <%=reservation.roomType%>
-                            </td>
-                            <td>
-                                <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
-                            </td>
-                            <td>
-                                <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
-                            </td>
-                            <td>
-                                <%=reservation.status%>
-                            </td>
-                            <td><a href="/users/<%=user._id%>/reservations/<%=reservation._id%>">View Details</a><br>
-                                <%if(reservation.status==='confirmed' ){%>
-                                    <form
-                                        action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
-                                        method="POST">
-                                        <button type="submit" class="cancel">Cancel Reservation</button>
-                                    </form>
-                                    <%}%>
-                            </td>
 
+                            <th>Hotel name</th>
+                            <th>Room Type</th>
+                            <th>Check-in date</th>
+                            <th>Check-out date</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                        <% })%>
+                    </thead>
+                    <tbody>
+
+                        <%reservations.forEach((reservation)=>{%>
+                            <tr>
+                                <td>
+                                    <%=reservation.hotel.name%>
+                                </td>
+                                <td>
+                                    <%=reservation.roomType%>
+                                </td>
+                                <td>
+                                    <%= new Date(reservation.checkIn).toLocaleDateString('en-GB') %>
+                                </td>
+                                <td>
+                                    <%= new Date(reservation.checkOut).toLocaleDateString('en-GB') %>
+                                </td>
+                                <td>
+                                    <%=reservation.status%>
+                                </td>
+                                <td><a href="/users/<%=user._id%>/reservations/<%=reservation._id%>">View
+                                        Details</a><br>
+                                    <%if(reservation.status==='confirmed' ){%>
+                                        <form
+                                            action="/users/<%= user._id %>/reservations/<%= reservation._id %>?_method=PUT"
+                                            method="POST">
+                                            <button type="submit" class="cancel">Cancel Reservation</button>
+                                        </form>
+                                        <%}%>
+                                </td>
+
+                            </tr>
+                            <% })%>
+                    </tbody>
                 </table>
                 <%}%>
 

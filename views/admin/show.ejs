@@ -8,122 +8,130 @@
         <%=hotel.name%>
     </title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
     <%- include('../partials/_navbar') %>
-        <div class="hotel-container">
-            <div class="pict-details">
-                <div class="gallery">
-                    <div class="mainImage-container">
-                        <button type="button" onclick="previousImage()">❮</button>
-                        <div class="main-image"> <img src="<%= hotel.pictures[0].url %>"></div>
-                        <button type="button" onclick="nextImage()">❯</button>
+        <% const serviceIcons={ "Wifi" : "fa-solid fa-wifi" , "Swimming Pool" : "fa-solid fa-person-swimming"
+            , "Room Service" : "fa-solid fa-bell-concierge" , "View" : "fa-solid fa-mountain-sun" , "Gym"
+            : "fa-solid fa-dumbbell" , "Spa" : "fa-solid fa-spa" , "Parking" : "fa-solid fa-square-parking"
+            , "Non-smoking rooms" : "fa-solid fa-ban-smoking" }; const roomIcons={ "Single" : "fa-solid fa-bed"
+            , "Double" : "fa-solid fa-bed-pulse" , "Suite" : "fa-solid fa-hotel" }; %>
+            <div class="hotel-container">
+                <div class="pict-details">
+                    <div class="gallery">
+                        <div class="mainImage-container">
+                            <button type="button" onclick="previousImage()">❮</button>
+                            <div class="main-image"> <img src="<%= hotel.pictures[0].url %>"></div>
+                            <button type="button" onclick="nextImage()">❯</button>
+                        </div>
+                        <div class="thumbnail">
+                            <% hotel.pictures.forEach(picture=> { %>
+                                <div class="picture">
+                                    <img src="<%= picture.url %>">
+                                </div>
+                                <% }) %>
+                        </div>
                     </div>
-                    <div class="thumbnail">
-                        <% hotel.pictures.forEach(picture=> { %>
-                            <div class="picture">
-                                <img src="<%= picture.url %>">
-                            </div>
-                            <% }) %>
-                    </div>
-                </div>
-                <div class="details">
-                    <h2>
-                        <%=hotel.name%>
-                    </h2>
-                    <p>
-                        <%=hotel.location%>
-                    </p>
-                    <p>
-                        <%=hotel.description%>
-                    </p>
-                </div>
-                <div id="map"></div>
-
-                <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
-                <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
-                <div class="buttons">
-
-                    <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
-                    <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                </div>
-            </div>
-            <div class="services">
-                <%hotel.services.forEach((service)=>{%>
-                    <div class="service">
+                    <div class="details">
+                        <h2>
+                            <%=hotel.name%>
+                        </h2>
                         <p>
-                            <%=service%>
+                            <%=hotel.location%>
+                        </p>
+                        <p>
+                            <%=hotel.description%>
                         </p>
                     </div>
-                    <%})%>
-            </div>
-            <div class="rooms">
-                <%hotel.rooms.forEach((room)=>{%>
-                    <div class="room">
-                        <p>
-                            <%=room.type%>
-                                <%=room.pricePerNight%>
-                        </p>
+                    <div id="map"></div>
+
+                    <input type="hidden" name="latitude" id="latitude" value="<%=hotel.map.latitude%>">
+                    <input type="hidden" name="longitude" id="longitude" value="<%=hotel.map.longitude%>">
+                    <div class="buttons">
+
+                        <a href="/admin/hotels/<%=hotel._id%>/edit">Edit</a>
+                        <form action="/admin/hotels/<%=hotel._id%>?_method=delete" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
                     </div>
-                    <%})%>
-            </div>
-        </div>
-        <% comments.forEach((comment)=>{%>
-            <div class="comment-container">
-                <div class="comment">
-                    <div class="stars">
-                        <% for (let i=1; i <=5; i++) { %>
-                            <% if(i <=Number(comment.stars)){%> <label style="color:orange;">★</label>
-                                <%}else{%> <label style="color:grey;">★</label>
-                                    <%} } %>
-                    </div>
-                    <h3>
-                        <%= comment.title %>
-                    </h3>
-                    <p>
-                        <%= comment.description %>
-                    </p>
+                </div>
+                <div class="services">
+                    <%hotel.services.forEach((service)=>{%>
+                        <div class="service">
+                            <span>
+                                <i class="<%= serviceIcons[service] %>"></i>
+                                <%= service %>
+                            </span>
+                        </div>
+                        <%})%>
+                </div>
+                <div class="rooms">
+                    <%hotel.rooms.forEach((room)=>{%>
+                        <div class="room">
+                            <span>
+                                <i class="<%= roomIcons[room.type] %>"></i>
+                                <%=room.type%>
+                                    <%=room.pricePerNight%> BHD
+                            </span>
+                        </div>
+                        <%})%>
                 </div>
             </div>
-            <%})%>
+            <% comments.forEach((comment)=>{%>
+                <div class="comment-container">
+                    <div class="comment">
+                        <div class="stars">
+                            <% for (let i=1; i <=5; i++) { %>
+                                <% if(i <=Number(comment.stars)){%> <label style="color:orange;">★</label>
+                                    <%}else{%> <label style="color:grey;">★</label>
+                                        <%} } %>
+                        </div>
+                        <h3>
+                            <%= comment.title %>
+                        </h3>
+                        <p>
+                            <%= comment.description %>
+                        </p>
+                    </div>
+                </div>
+                <%})%>
 
-                <script>  let map;
-                    let marker;
+                    <script>  let map;
+                        let marker;
 
-                    function initMap() {
+                        function initMap() {
 
-                        const initialLocation = {
-                            lat: Number(document.getElementById("latitude").value),
-                            lng: Number(document.getElementById("longitude").value)
-                        };
+                            const initialLocation = {
+                                lat: Number(document.getElementById("latitude").value),
+                                lng: Number(document.getElementById("longitude").value)
+                            };
 
-                        map = new google.maps.Map(document.getElementById("map"), {
-                            center: initialLocation,
-                            zoom: 12
-                        });
+                            map = new google.maps.Map(document.getElementById("map"), {
+                                center: initialLocation,
+                                zoom: 12
+                            });
 
-                        marker = new google.maps.Marker({
-                            position: initialLocation,
-                            map: map
-                        });
-                    }
-                </script>
-                <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
-                    async defer></script>
-
-                <%- include('../partials/_footer') %>
-                    <style>
-                        #map {
-                            width: 100%;
-                            height: 400px;
-                            border: 2px solid red;
+                            marker = new google.maps.Marker({
+                                position: initialLocation,
+                                map: map
+                            });
                         }
-                    </style>
-                    <script src="/js/imageGallery.js"></script>
+                    </script>
+                    <script
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
+                        async defer></script>
+
+                    <%- include('../partials/_footer') %>
+                        <style>
+                            #map {
+                                width: 100%;
+                                height: 400px;
+                                border: 2px solid red;
+                            }
+                        </style>
+                        <script src="/js/imageGallery.js"></script>
 </body>
 
 </html>

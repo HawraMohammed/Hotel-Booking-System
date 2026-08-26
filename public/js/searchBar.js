@@ -1,3 +1,15 @@
+const roomIcons = {
+    "Single": "fa-solid fa-bed",
+    "Double": "fa-solid fa-bed-pulse",
+    "Suite": "fa-solid fa-hotel"
+};
+const serviceIcons = {
+    "Wifi": "fa-solid fa-wifi", "Swimming Pool": "fa-solid fa-person-swimming"
+    , "Room Service": "fa-solid fa-bell-concierge", "View": "fa-solid fa-mountain-sun", "Gym"
+        : "fa-solid fa-dumbbell", "Spa": "fa-solid fa-spa", "Parking": "fa-solid fa-square-parking"
+    , "Non-smoking rooms": "fa-solid fa-ban-smoking"
+};
+
 const search = document.querySelector('#search');
 const filter = document.querySelector('#filter');
 const hotelList = document.querySelector('.hotels-list');
@@ -20,13 +32,15 @@ async function getHotels() {
 
     console.log(hotels);
 
-    hotelList.innerHTML = "";
-
+    hotelList.innerHTML = `
+    ${hotels.length === 0 ? '<p>No hotels found</p>' : ''}
+`;
     hotels.forEach((hotel) => {
 
 
 
         hotelList.innerHTML += `
+                
         <div class="hotel-container">
 
             <div class="pict-details">
@@ -69,9 +83,10 @@ async function getHotels() {
 
                 ${hotel.services.map((service) => `
                     <div class="service">
-                        <p>
-                            ${service}
-                        </p>
+                         <span>
+                                            <i class="${serviceIcons[service]}"></i>
+                                          ${service}
+                                        </span>
                     </div>
                 `).join('')}
 
@@ -81,10 +96,11 @@ async function getHotels() {
 
                 ${hotel.rooms.map((room) => `
                     <div class="room">
-                        <p>
-                            ${room.type}
-                            ${room.pricePerNight}
-                        </p>
+                       <span>
+                                            <i class="${roomIcons[room.type]}"></i>
+                                          ${room.type}
+                                                ${room.pricePerNight} BHD
+                                        </span>
                     </div>
                 `).join('')}
 
@@ -94,7 +110,7 @@ async function getHotels() {
     `;
     });
 };
-
+getHotels();
 search.addEventListener('input', getHotels);
 filter.addEventListener('change', getHotels);
 
