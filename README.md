@@ -21,11 +21,20 @@
 
 *future improvements:
 - I want to be able to add/edit/delete places to visit (attractions,restaurants,entertianments)
+## Screenshots:
+![homepage](/public/images/homepage.png)
+![hotels](/public/images/hotels.png)
+
+## Attributions:
+[Font Awesome] — Used for icons.
+[Google Maps Platform] — Used to display hotel locations.
+[Cloudinary] — Used for image storage.
+[Google Fonts] — Used for application fonts.
 
 ## Initial protoypes:
-![prototypes](./prototypes.png)
+![prototypes](/public/images/prototypes.png)
 ## Entity Relationship Diagram:
-![ERD](./ERD.png)
+![ERD](/public/images/ERD.png)
 
 
 
