@@ -17,6 +17,8 @@
 * **Location Integration:** Google Maps is used to display and manage hotel locations.
 * **Image Management:** Hotel images can be uploaded and displayed as part of the hotel's information.
 
+## 🔗 Live Demo: [Live Demo](https://hotel-booking-system-t7fd.onrender.com/)
+
 ## User Stories:
 
 ### User(1): Customer

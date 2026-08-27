@@ -169,6 +169,7 @@ const deleteHotel = async (req, res) => {
                 await cloudinary.uploader.destroy(picture.public_id);
             }
         }
+        console.log("Hotel being deleted:", req.params.hotelid);
         await Reservation.deleteMany({
             hotel: req.params.hotelid
         });
