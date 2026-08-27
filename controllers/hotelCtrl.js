@@ -87,7 +87,7 @@ const handleSearch = async (req, res) => {
 const showHotel = async (req, res) => {
     try {
         const hotel = await Hotel.findById(req.params.hotelid).populate("comments.user");
-        res.render('user/hotels/show.ejs', { hotel, comments: hotel.comments });
+        res.render('user/hotels/show.ejs', { hotel, comments: hotel.comments, googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY });
     }
     catch (err) { console.log(err.message) }
 }

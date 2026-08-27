@@ -33,13 +33,13 @@ comments.forEach((comment) => {
     const edit = comment.querySelector('.edit-form');
     const editButton = comment.querySelector('.edit-button');
 
+    if (editButton) {
+        editButton.addEventListener('click', () => {
 
-    editButton.addEventListener('click', () => {
+            display.style.display = 'none';
 
-        display.style.display = 'none';
+            edit.style.display = 'block';
 
-        edit.style.display = 'block';
-
-    });
-
+        });
+    }
 });

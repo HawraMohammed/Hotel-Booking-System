@@ -10,7 +10,7 @@ const index = async (req, res) => {
 }
 const newHotel = async (req, res) => {
     try {
-        res.render('admin/new.ejs');
+        res.render('admin/new.ejs', { googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY });
     }
     catch (err) { console.log(err.message) }
 }
@@ -76,7 +76,7 @@ const createHotel = async (req, res) => {
 const editHotel = async (req, res) => {
     try {
         const hotel = await Hotel.findById(req.params.hotelid);
-        res.render('admin/edit.ejs', { hotel });
+        res.render('admin/edit.ejs', { hotel, googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY });
     }
     catch (err) { console.log(err.message) }
 }
@@ -156,7 +156,7 @@ const showHotel = async (req, res) => {
     try {
         const hotel = await Hotel.findById(req.params.hotelid).populate('comments.user');
 
-        res.render('admin/show.ejs', { hotel, comments: hotel.comments });
+        res.render('admin/show.ejs', { hotel, comments: hotel.comments, googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY });
     }
     catch (err) { console.log(err.message) }
 }

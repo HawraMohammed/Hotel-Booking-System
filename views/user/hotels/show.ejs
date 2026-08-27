@@ -365,9 +365,6 @@
             <!-- FOOTER -->
             <%- include('../../partials/_footer') %>
 
-
-
-                <!-- GOOGLE MAP -->
                 <script>
 
                     let map;
@@ -411,9 +408,8 @@
                 </script>
 
 
-                <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfdf1VYfjilSBehoOcOy5csWIOsQdOJME&callback=initMap"
-                    async defer>
+                <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&callback=initMap" async
+                    defer>
                     </script>
                 <script src="/js/imageGallery.js"></script>
                 <script src="/js/commentCtrl.js"></script>
