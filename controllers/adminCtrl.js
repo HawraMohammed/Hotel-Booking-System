@@ -170,7 +170,7 @@ const deleteHotel = async (req, res) => {
             }
         }
         await Reservation.deleteMany({
-            hotel: req.params.id
+            hotel: req.params.hotelid
         });
         await Hotel.findByIdAndDelete(req.params.hotelid);
         res.redirect('/admin/hotels');
