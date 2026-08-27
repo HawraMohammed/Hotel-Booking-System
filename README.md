@@ -2,6 +2,21 @@
   <span class="headline">Hotel Booking System</span>
 </h1>
 
+## Features:
+
+* **Hotel Browsing:** Users can browse available hotels and view detailed information, including descriptions, locations, features, room types, prices, and images.
+* **Hotel Search:** Users can search for hotels by their name or location.
+* **Hotel Filtering and Sorting:** Hotels can be filtered and sorted based on criteria such as price, location, and ratings.
+* **Room Selection:** Each hotel provides different room types with information about their capacity and price per night.
+* **Reservation Management:** Users can make hotel reservations by selecting their desired room type, check-in date, and check-out date.
+* **Room Availability:** The system checks existing reservations to help prevent users from booking unavailable rooms.
+* **Previous Reservations:** Users can view their reservations and organize them into upcoming, completed, and cancelled reservations.
+* **Comments and Ratings:** Users can leave comments and rate hotels, allowing other users to see feedback and ratings.
+* **User Authentication:** Users can sign in and access features associated with their accounts.
+* **Admin Management:** Administrators can add and manage hotels, including their descriptions, locations, images, features, room types, prices, and capacities.
+* **Location Integration:** Google Maps is used to display and manage hotel locations.
+* **Image Management:** Hotel images can be uploaded and displayed as part of the hotel's information.
+
 ## User Stories:
 
 ### User(1): Customer
