@@ -1,4 +1,5 @@
 const Hotel = require('../models/hotel');
+const Reservation = require('../models/reservation');
 const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 const index = async (req, res) => {
@@ -168,6 +169,9 @@ const deleteHotel = async (req, res) => {
                 await cloudinary.uploader.destroy(picture.public_id);
             }
         }
+        await Reservation.deleteMany({
+            hotel: req.params.id
+        });
         await Hotel.findByIdAndDelete(req.params.hotelid);
         res.redirect('/admin/hotels');
     }
