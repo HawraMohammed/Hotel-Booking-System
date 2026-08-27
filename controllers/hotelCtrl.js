@@ -31,7 +31,6 @@ const handleSearch = async (req, res) => {
             }
         }
         else if (req.body.action === 'filter') {
-            console.log(req.body.filter);
             if (req.body.filter === "priceAsc") {
                 hotels = await Hotel.aggregate([
                     {

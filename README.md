@@ -2,6 +2,8 @@
   <span class="headline">Hotel Booking System</span>
 </h1>
 
+## 🔗 Live Demo: [Live Demo](https://hotel-booking-system-t7fd.onrender.com/)
+
 ## Features:
 
 * **Hotel Browsing:** Users can browse available hotels and view detailed information, including descriptions, locations, features, room types, prices, and images.
@@ -17,7 +19,9 @@
 * **Location Integration:** Google Maps is used to display and manage hotel locations.
 * **Image Management:** Hotel images can be uploaded and displayed as part of the hotel's information.
 
-## 🔗 Live Demo: [Live Demo](https://hotel-booking-system-t7fd.onrender.com/)
+## Technologies Used
+
+HTML, CSS, JavaScript, Node.js, Express.js, EJS, MongoDB, Mongoose, Google Maps API, Cloudinary, Git & GitHub.
 
 ## User Stories:
 

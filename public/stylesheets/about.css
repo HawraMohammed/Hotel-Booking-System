@@ -1,7 +1,3 @@
-/* =========================
-   ABOUT PAGE
-========================= */
-
 .about-page {
     min-height: 100vh;
     background-color: #F4FAFA;
@@ -124,9 +120,6 @@
     line-height: 1.6;
     margin: 0;
 }
-
-
-/* MISSION */
 
 .about-mission {
     display: flex;

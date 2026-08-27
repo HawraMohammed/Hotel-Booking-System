@@ -1,5 +1,3 @@
-const User = require("../models/user");
-const Hotel = require("../models/hotel");
 const Reservation = require("../models/reservation");
 const session = require("express-session");
 const index = async (req, res) => {
@@ -26,7 +24,7 @@ const showReservation = async (req, res) => {
 }
 const cancelReservation = async (req, res) => {
     try {
-        const reservation = await Reservation.findByIdAndUpdate(req.params.reservationid, { status: 'cancelled' });
+        await Reservation.findByIdAndUpdate(req.params.reservationid, { status: 'cancelled' });
         res.redirect(`/users/${req.session.user._id}/reservations`);
     }
     catch (err) { console.log(err.message) }
