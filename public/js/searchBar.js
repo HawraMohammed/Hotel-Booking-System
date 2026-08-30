@@ -30,7 +30,7 @@ async function getHotels() {
 
     const hotels = await response.json();
 
-    console.log(hotels);
+
 
     hotelList.innerHTML = `
     ${hotels.length === 0 ? '<p>No hotels found</p>' : ''}
